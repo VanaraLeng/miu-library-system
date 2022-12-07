@@ -123,7 +123,7 @@ final public class Book implements Serializable, Validable {
 		if (!Validator.isFilled(title)) {
 			return "Title is not correct";
 		}
-		if (maxCheckoutLength == 0 || maxCheckoutLength > 365) {
+		if (!Validator.isValidCheckoutLength(maxCheckoutLength)) {
 			return "Max checkout length is incorrect";
 		}
 		if (Validator.isNotEmpty(authors)) {
