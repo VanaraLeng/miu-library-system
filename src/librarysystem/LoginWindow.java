@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 import business.ControllerInterface;
 
 import business.SystemController;
-import javax.swing.JSplitPane;
 
 
 public class LoginWindow extends JFrame implements LibWindow {

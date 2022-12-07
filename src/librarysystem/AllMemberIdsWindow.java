@@ -87,7 +87,6 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 	@Override
 	public void isInitialized(boolean val) {
 		isInitialized = val;
-		
 	}
 	
 }

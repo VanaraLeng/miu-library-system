@@ -10,9 +10,6 @@ import javax.swing.JFrame;
 
 public class Main {
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	public static void main(String[] args) {
 	      EventQueue.invokeLater(() -> 
 	         {
