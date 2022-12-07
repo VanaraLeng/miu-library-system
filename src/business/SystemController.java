@@ -1,5 +1,6 @@
 package business;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,16 +75,18 @@ public class SystemController implements ControllerInterface {
 		HashMap<String,Book> map = da.readBooksMap();
 		if(!map.containsKey(isbn)) {
 			throw new LibrarySystemException("Book with ISBN " + isbn + " not found!");
-		} else {
-			map.get(isbn).addCopy();
 		}
+		
+		Book book = map.get(isbn);
+		book.addCopy();
+		da.saveBookCopy(book);
 	}
 	
 	@Override
 	public void checkoutBook(String mId, String isbn) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
-		HashMap<String, User> UserMap = da.readUserMap();
-		if(!UserMap.containsKey(mId)) {
+		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+		if(!memberMap.containsKey(mId)) {
 			throw new LibrarySystemException("ID " + mId + " not found");
 		}
 		
@@ -96,7 +99,10 @@ public class SystemController implements ControllerInterface {
 			throw new LibrarySystemException("Book is not available.");
 		}
 		
-		//to be completed!
+		LibraryMember member = memberMap.get(mId);
+		Book book = bookMap.get(isbn);
+		member.addCheckoutRecord(LocalDate.now(), book.getNextAvailableCopy());
+		da.saveCheckoutRecord(member);
 	}
 	
 	public static Author createAuthor(String fn, String ln, String tel, String bio, String street, String city, String state, String zip) {
