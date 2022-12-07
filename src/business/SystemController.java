@@ -110,4 +110,24 @@ public class SystemController implements ControllerInterface {
 		return new Author(fn, ln, tel, address, bio);
 	}
 	
+	@Override
+	public List<CheckoutRecord> getCheckoutRecords(String mId) throws LibrarySystemException {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+		if (!memberMap.containsKey(mId)) {
+			throw new LibrarySystemException("Member not found");
+		}
+		return memberMap.get(mId).getCheckoutRecords();
+	}
+	
+	@Override
+	public Book getBook(String isbn) throws LibrarySystemException {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> bookMap = da.readBooksMap();
+		if (!bookMap.containsKey(isbn)) {
+			throw new LibrarySystemException("Book not found");
+		}		
+		return bookMap.get(isbn);
+	}
+	
 }

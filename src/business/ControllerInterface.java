@@ -15,4 +15,6 @@ public interface ControllerInterface {
 	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors, int numCopy) throws LibrarySystemException;
 	public void addBookCopy(String isbn) throws LibrarySystemException;
 	public void checkoutBook(String mId, String isbn) throws LibrarySystemException;
+	public List<CheckoutRecord> getCheckoutRecords(String mId) throws LibrarySystemException;
+	public Book getBook(String isbn) throws LibrarySystemException;
 }
