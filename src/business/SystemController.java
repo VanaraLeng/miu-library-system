@@ -129,5 +129,11 @@ public class SystemController implements ControllerInterface {
 		}		
 		return bookMap.get(isbn);
 	}
+	public void logout() {
+		currentAuth=null;
+		Main.main(null);
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
