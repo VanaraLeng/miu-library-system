@@ -20,4 +20,9 @@ public class CheckoutRecord {
 	public List<CheckoutEntry> getCheckoutEntries() {
 		return this.checkoutEntries;
 	}
+	
+	@Override
+	public String toString() {
+		return "CheckoutRecord for: " + member.getFirstName() + ", " + member.getLastName() + checkoutEntries;
+	}
 }

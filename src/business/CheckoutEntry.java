@@ -40,4 +40,9 @@ public class CheckoutEntry {
 	public BookCopy getBookCopy() {
 		return this.bookCopy;
 	}
+	
+	@Override
+	public String toString() {
+		return bookCopy.getBook().getTitle() + ", " + checkoutDate.toString() + ", " + dueDate.toString();
+	}
 }
