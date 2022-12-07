@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
+
+import librarysystem.managebook.AddBookPanel;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -16,7 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainWindow {
+public class TestWindow {
 
 	private JFrame frame;
 
@@ -27,7 +30,7 @@ public class MainWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow window = new MainWindow();
+					TestWindow window = new TestWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +42,7 @@ public class MainWindow {
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
+	public TestWindow() {
 		initialize();
 	}
 
