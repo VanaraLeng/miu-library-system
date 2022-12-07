@@ -1,4 +1,4 @@
-package librarysystem;
+package librarysystem.managebook;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -72,7 +72,7 @@ public class AddBookPanel extends JPanel {
 		add(lblMaxCheckoutLength);
 		
 		JButton btnAddAuthor = new JButton("");
-		btnAddAuthor.setIcon(new ImageIcon(AddBookPanel.class.getResource("/librarysystem/iconPlus.png")));
+		btnAddAuthor.setIcon(new ImageIcon(AddBookPanel.class.getResource("/librarysystem/assets/iconPlus.png")));
 		btnAddAuthor.setBackground(new Color(192, 192, 192));
 		btnAddAuthor.addActionListener(e -> {
 			AddAuthorBox box = new AddAuthorBox();
