@@ -7,10 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import utility.Validator;
+
 /**
  *
  */
-final public class Book implements Serializable {
+final public class Book implements Serializable, Validable {
 	
 	private static final long serialVersionUID = 6110690276685962829L;
 	private BookCopy[] copies;
@@ -112,5 +114,23 @@ final public class Book implements Serializable {
 	public int getMaxCheckoutLength() {
 		return maxCheckoutLength;
 	}
+
+	
+	public String getValidationMessage() {
+		if (!Validator.isCorrectISBN(isbn)) {
+			return "ISBN is not correct";
+		} 
+		if (!Validator.isFilled(title)) {
+			return "Title is not correct";
+		}
+		if (maxCheckoutLength == 0 || maxCheckoutLength > 365) {
+			return "Max checkout length is incorrect";
+		}
+		if (Validator.isNotEmpty(authors)) {
+			return "Please enter author";
+		}
+		return null;
+	}
+	
 	
 }

@@ -2,7 +2,9 @@ package business;
 
 import java.io.Serializable;
 
-public class Person implements Serializable {
+import utility.Validator;
+
+public class Person implements Serializable, Validable {
 	private static final long serialVersionUID = 3665880920647848288L;
 	private String firstName;
 	private String lastName;
@@ -39,8 +41,19 @@ public class Person implements Serializable {
 		this.address = address;
 	}
 	
-	@Override
-	public String toString() {
-		return "(" + firstName + ", " + lastName + ", " + telephone + ", " + address.toString() + ")";
+	public String getValidationMessage() {
+		if (!Validator.isFilled(firstName)) {
+			return "First name is incorrect";
+		}
+		
+		if (!Validator.isFilled(lastName)) {
+			return "Last name is incorrect";
+		}
+		
+		if (!Validator.isCorrectPhoneNumber(telephone)) {
+			return "Telephone is incorrect";
+		}
+		
+		return address.getValidationMessage();
 	}
 }
