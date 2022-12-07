@@ -1,4 +1,4 @@
-package librarysystem.managebook;
+package librarysystem;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
