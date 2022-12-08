@@ -83,7 +83,7 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public void checkoutBook(String mId, String isbn) throws LibrarySystemException {
+	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
 		if(!memberMap.containsKey(mId)) {
@@ -101,8 +101,38 @@ public class SystemController implements ControllerInterface {
 		
 		LibraryMember member = memberMap.get(mId);
 		Book book = bookMap.get(isbn);
-		member.addCheckoutRecord(LocalDate.now(), book.getNextAvailableCopy());
+		CheckoutRecord cr = member.addCheckoutRecord(LocalDate.now(), book.getNextAvailableCopy());
 		da.saveCheckoutRecord(member);
+		return cr;
+	}
+	
+	public LibraryMember getMember(String mId) throws LibrarySystemException {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+		if(!memberMap.containsKey(mId)) {
+			throw new LibrarySystemException("ID " + mId + " not found");
+		}
+		return memberMap.get(mId);
+	}
+	
+	public BookCopy getBookCopy(String isbn) throws LibrarySystemException {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> bookMap = da.readBooksMap();
+		Book book = bookMap.get(isbn);
+		if (book == null) {
+			throw new LibrarySystemException("ID " + isbn + " not found"); 
+		}
+		return book.getNextAvailableCopy();
+	}
+	
+	public CheckoutRecord createCheckoutRecord(LibraryMember member) {
+		CheckoutRecord record = new CheckoutRecord(member, LocalDate.now());
+		return record;
+	}
+	
+	public void addBookCopy(CheckoutRecord rec, BookCopy book, LocalDate date) {
+		CheckoutEntry entry = new CheckoutEntry(date, book);
+		rec.addCheckoutEntry(entry);
 	}
 	
 	public static Author createAuthor(String fn, String ln, String tel, String bio, String street, String city, String state, String zip) {
@@ -129,6 +159,9 @@ public class SystemController implements ControllerInterface {
 		}		
 		return bookMap.get(isbn);
 	}
+	
+	
+	
 	public void logout() {
 		currentAuth=null;
 		Main.main(null);

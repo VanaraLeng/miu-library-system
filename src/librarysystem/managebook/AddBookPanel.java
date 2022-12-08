@@ -1,18 +1,23 @@
 package librarysystem.managebook;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.Font;
-
-import business.*;
-import java.util.ArrayList;
 import javax.swing.SwingConstants;
-import java.util.List;
-import javax.swing.JList;
-import java.awt.Color;
-import javax.swing.ImageIcon;
+
+import business.Author;
+import business.Book;
+import business.ControllerInterface;
+import business.SystemController;
+import utility.DataUtil;
 
 public class AddBookPanel extends JPanel {
 	/**
@@ -24,7 +29,10 @@ public class AddBookPanel extends JPanel {
 	private JTextField textFieldLength;
 	private JList<String> listAuthor;
 	
+	private ControllerInterface ci = new SystemController();
+	
 	private List<Author> authors = new ArrayList<>();
+	private JTextField textFieldNumberCopy;
 	
 	/**
 	 * Create the panel.
@@ -61,7 +69,7 @@ public class AddBookPanel extends JPanel {
 		
 		JLabel lblAuthor = new JLabel("Author(s)");
 		lblAuthor.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAuthor.setBounds(21, 209, 150, 16);
+		lblAuthor.setBounds(21, 199, 150, 16);
 		add(lblAuthor);
 		
 		textFieldLength = new JTextField();
@@ -83,23 +91,35 @@ public class AddBookPanel extends JPanel {
 			box.setOwner(this);
 			box.setVisible(true);
 		});
-		btnAddAuthor.setBounds(416, 209, 34, 34);
+		btnAddAuthor.setBounds(406, 199, 34, 34);
 		add(btnAddAuthor);
 		
 		JButton btnAddBook = new JButton("Add Book");
 		btnAddBook.addActionListener( event -> {
-			String title = textFieldTitle.getText();
-			String isbn = textFieldIsbn.getText();
-			String checkoutLength = textFieldLength.getText();
-			addBook(isbn, title, checkoutLength);
+			String title = textFieldTitle.getText().trim();
+			String isbn = textFieldIsbn.getText().trim();
+			String checkoutLength = textFieldLength.getText().trim();
+			String numCopies = textFieldNumberCopy.getText().trim();
+			addBook(isbn, title, checkoutLength, numCopies);
 		});
 		
 		btnAddBook.setBounds(183, 340, 211, 50);
 		add(btnAddBook);
 		
 		listAuthor = new JList<String>();
-		listAuthor.setBounds(183, 209, 211, 93);
+		listAuthor.setBounds(183, 199, 211, 71);
 		add(listAuthor);
+		
+		textFieldNumberCopy = new JTextField();
+		textFieldNumberCopy.setText("1");
+		textFieldNumberCopy.setColumns(10);
+		textFieldNumberCopy.setBounds(183, 282, 211, 36);
+		add(textFieldNumberCopy);
+		
+		JLabel lblNumberOfCopies = new JLabel("Number of copies");
+		lblNumberOfCopies.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNumberOfCopies.setBounds(21, 292, 150, 16);
+		add(lblNumberOfCopies);
 
 	}
 	
@@ -115,10 +135,38 @@ public class AddBookPanel extends JPanel {
 		listAuthor.setListData(dataSource);
 	}
 	
-	void addBook(String isbn, String title, String checkoutLength) {
-		int length = Integer.parseInt(checkoutLength);
+	void addBook(String isbn, String title, String checkoutLength, String numCopies) {
+		int length = DataUtil.getInt(checkoutLength);
+		int numCopy = DataUtil.getInt(numCopies);
+		
 		Book book = new Book(isbn, title, length, authors);
+	
+		// Validate 
 		String message = book.getValidationMessage();
-		System.out.println(message);
+		if (message != null) {
+			System.out.println(message);	
+			return; 
+		} else if (numCopy < 1) {
+			System.out.println("Num copy must be greater than 1");
+			return;
+		}
+
+		// Add to system
+		try {
+			ci.addBook(isbn, title, length, authors, numCopy);
+			System.out.print(book.getTitle() + " is added");
+			
+			clearInput();
+		} catch (Exception e) {
+			System.out.print(e);
+		}
+	}
+	
+	private void clearInput() { 
+		textFieldTitle.setText(null);
+		textFieldIsbn.setText(null);
+		textFieldLength.setText(null);
+		listAuthor.setListData(new String[0]);
+		authors = new ArrayList<>();
 	}
 }

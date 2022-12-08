@@ -5,25 +5,30 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import dataaccess.DataAccess;
-import dataaccess.DataAccessFacade;
-
 final public class LibraryMember extends Person implements Serializable {
 	private String memberId;
-	private List<CheckoutRecord> checkoutRecords = new ArrayList<>();
+	private List<CheckoutRecord> checkoutRecords;
 	
 	public LibraryMember(String memberId, String fname, String lname, String tel, Address add) {
 		super(fname,lname, tel, add);
-		this.memberId = memberId;		
+		this.memberId = memberId;	
+		this.checkoutRecords = new ArrayList<>();
 	}
 	
 	public String getMemberId() {
 		return memberId;
 	}
 
-	public void addCheckoutRecord(LocalDate checkoutDate, BookCopy bookCopy) {
-		checkoutRecords.add(new CheckoutRecord(this, checkoutDate, bookCopy));
+	public CheckoutRecord addCheckoutRecord(LocalDate checkoutDate, BookCopy bookCopy) {
+		if (checkoutRecords == null) {
+			checkoutRecords = new ArrayList<>();
+		}
+		CheckoutRecord cr = new CheckoutRecord(this, checkoutDate, bookCopy);
+		checkoutRecords.add(cr);
+		
+		return cr;
 	}
+
 	
 	public List<CheckoutRecord> getCheckoutRecords() {
 		return this.checkoutRecords;

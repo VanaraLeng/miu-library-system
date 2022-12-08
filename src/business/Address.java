@@ -50,7 +50,7 @@ final public class Address implements Serializable, Validable {
 			return "State is incorrect";
 		}
 		
-		if (!Validator.isFilled(zip) || !Validator.isCorrectZipCode(zip)) {
+		if (!Validator.isFilled(zip)) {
 			return "Zip is incorrect";
 		}
 		

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
+import librarysystem.checkout.CheckoutPanel;
 import librarysystem.managebook.AddBookPanel;
 
 import javax.swing.JPanel;
@@ -75,7 +76,7 @@ public class TestWindow {
 		splitPane.setRightComponent(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		AddBookPanel panel = new AddBookPanel();
+		CheckoutPanel panel = new CheckoutPanel();
 		panel_2.add(panel);
 		panel.setLayout(null);
 	}

@@ -26,7 +26,7 @@ public class Validator {
 	
 	public static boolean isNumeric(String val) {
 		try {
-			Integer.parseInt(val);
+			Double.parseDouble(val);
 			return true;
 		} catch(NumberFormatException e) {
 			return false;

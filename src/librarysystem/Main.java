@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 	      EventQueue.invokeLater(() -> 
 	         {
-	            MainUI.INSTANCE.setTitle("Sample Library Application");
+	            MainUI.INSTANCE.setTitle("MIU Library System");
 	            MainUI.INSTANCE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            
 	            MainUI.INSTANCE.init();

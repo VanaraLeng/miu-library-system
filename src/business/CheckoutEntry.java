@@ -1,12 +1,14 @@
 package business;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 
-public class CheckoutEntry {
+public class CheckoutEntry implements Serializable {
+	private static final long serialVersionUID = -696228114869914L;
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
 	private BookCopy bookCopy;

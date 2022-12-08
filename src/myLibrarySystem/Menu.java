@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import librarysystem.checkout.CheckoutPanel;
 import librarysystem.AllMemberIdsWindow;
 import librarysystem.authentication.LoginWindow;
 import librarysystem.mainUI.MainUI;
@@ -66,7 +67,7 @@ public class Menu extends JPanel {
     	btnCheckoutBook.setBounds(10, 179, 154, 21);
     	btnCheckoutBook.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			MainUI.INSTANCE.setMainPanel(new CheckoutPanel());
     		}
     	});
     	add(btnCheckoutBook);
