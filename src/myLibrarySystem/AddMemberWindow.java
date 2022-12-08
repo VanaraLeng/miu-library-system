@@ -1,5 +1,7 @@
 package myLibrarySystem;
 
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,39 +57,40 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 //			setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Adding new member");
-			lblNewLabel.setBounds(193, 21, 146, 13);
+			lblNewLabel.setBounds(193, 21, 216, 36);
+			lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 			add(lblNewLabel);
 			
 			JLabel labelID = new JLabel("ID : ");
-			labelID.setBounds(22, 76, 45, 13);
+			labelID.setBounds(22, 86, 45, 13);
 			add(labelID);
 			
 			JLabel labelLastName = new JLabel("Last Name : ");
-			labelLastName.setBounds(22, 131, 81, 13);
+			labelLastName.setBounds(22, 141, 81, 13);
 			add(labelLastName);
 			
 			JLabel labelState = new JLabel("State : ");
-			labelState.setBounds(22, 234, 45, 13);
+			labelState.setBounds(22, 244, 45, 13);
 			add(labelState);
 			
 			JLabel labelStreet = new JLabel("Street : ");
-			labelStreet.setBounds(22, 188, 45, 13);
+			labelStreet.setBounds(22, 198, 45, 13);
 			add(labelStreet);
 			
 			JLabel labelFirstName = new JLabel("First Name : ");
-			labelFirstName.setBounds(264, 76, 90, 13);
+			labelFirstName.setBounds(293, 86, 90, 13);
 			add(labelFirstName);
 			
 			JLabel labelTelephone = new JLabel("Telephone : ");
-			labelTelephone.setBounds(264, 131, 90, 13);
+			labelTelephone.setBounds(293, 141, 90, 13);
 			add(labelTelephone);
 			
 			JLabel labelCity = new JLabel("City : ");
-			labelCity.setBounds(264, 188, 75, 13);
+			labelCity.setBounds(293, 198, 75, 13);
 			add(labelCity);
 			
 			JLabel labelZip = new JLabel("Zip : ");
-			labelZip.setBounds(264, 234, 75, 13);
+			labelZip.setBounds(293, 244, 75, 13);
 			add(labelZip);
 			
 			textFieldID = new JTextField();
@@ -97,42 +100,42 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 			textFieldID.setColumns(10);
 			
 			textFieldLastName = new JTextField();
-			textFieldLastName.setBounds(113, 131, 96, 19);
+			textFieldLastName.setBounds(113, 128, 140, 36);
 			add(textFieldLastName);
 			textFieldLastName.setColumns(10);
 			
 			textFieldStreet = new JTextField();
-			textFieldStreet.setBounds(113, 188, 96, 19);
+			textFieldStreet.setBounds(113, 185, 140, 36);
 			add(textFieldStreet);
 			textFieldStreet.setColumns(10);
 			
 			textFieldState = new JTextField();
-			textFieldState.setBounds(113, 234, 96, 19);
+			textFieldState.setBounds(113, 234, 140, 36);
 			add(textFieldState);
 			textFieldState.setColumns(10);
 			
 			textFieldFirstName = new JTextField();
-			textFieldFirstName.setBounds(375, 73, 96, 19);
+			textFieldFirstName.setBounds(375, 73, 140, 36);
 			add(textFieldFirstName);
 			textFieldFirstName.setColumns(10);
 			
 			textFieldTelephone = new JTextField();
-			textFieldTelephone.setBounds(375, 128, 96, 19);
+			textFieldTelephone.setBounds(375, 128, 140, 36);
 			add(textFieldTelephone);
 			textFieldTelephone.setColumns(10);
 			
 			textFieldCity = new JTextField();
-			textFieldCity.setBounds(375, 185, 96, 19);
+			textFieldCity.setBounds(375, 185, 140, 36);
 			add(textFieldCity);
 			textFieldCity.setColumns(10);
 			
 			textFieldZip = new JTextField();
-			textFieldZip.setBounds(375, 234, 96, 19);
+			textFieldZip.setBounds(375, 234, 140, 36);
 			add(textFieldZip);
 			textFieldZip.setColumns(10);
 			
 			JButton btnAddMember = new JButton("Add Member");
-			btnAddMember.setBounds(164, 291, 118, 21);
+			btnAddMember.setBounds(208, 302, 118, 21);
 			addButtonAddMemberListener(btnAddMember);
 			add(btnAddMember);
 		//	******************************************
@@ -141,7 +144,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 			
 		//	******************************************
 			
-			setSize(508,399);		
+			setSize(553,399);		
     		isInitialized(true);
 //    		pack();
     		//setSize(660, 500);

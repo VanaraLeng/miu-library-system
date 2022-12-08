@@ -155,7 +155,6 @@ public class AddBookPanel extends JPanel {
 		try {
 			ci.addBook(book);
 			System.out.print(book.getTitle() + " is added");
-			
 			clearInput();
 		} catch (Exception e) {
 			System.out.print(e);

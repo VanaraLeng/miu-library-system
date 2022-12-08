@@ -1,6 +1,8 @@
 package myLibrarySystem;
 
 
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -51,15 +53,16 @@ public class AddBookCopyWindow  extends JPanel implements LibWindow {
 //			setBounds(147, 10, 499, 349);
 			
 			JLabel lblNewLabel = new JLabel("Adding a new Book Copy");
-			lblNewLabel.setBounds(195, 59, 150, 13);
+			lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+			lblNewLabel.setBounds(195, 59, 263, 36);
 			add(lblNewLabel);
 			
 			JLabel labelISBN = new JLabel("ISBN : ");
-			labelISBN.setBounds(179, 149, 62, 13);
+			labelISBN.setBounds(179, 157, 62, 13);
 			add(labelISBN);
 			
 			textFieldISBN = new JTextField();
-			textFieldISBN.setBounds(270, 146, 141, 19);
+			textFieldISBN.setBounds(270, 146, 211, 36);
 			add(textFieldISBN);
 			textFieldISBN.setColumns(10);
 			

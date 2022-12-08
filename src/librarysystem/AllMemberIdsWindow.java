@@ -30,7 +30,7 @@ public class AllMemberIdsWindow extends JPanel implements LibWindow {
 	
 	public void init() {
 		mainPanel = new JPanel();
-		mainPanel.setBounds(110, 35, 302, 242);
+		mainPanel.setBounds(55, 26, 302, 242);
 		mainPanel.setLayout(new BorderLayout());
 		defineTopPanel();
 		defineMiddlePanel();

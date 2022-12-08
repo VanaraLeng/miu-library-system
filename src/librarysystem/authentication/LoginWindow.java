@@ -34,20 +34,20 @@ public class LoginWindow extends JPanel{
 		setLayout(null);
 		
 		JLabel labelID = new JLabel("ID : ");
-		labelID.setBounds(69, 90, 30, 13);
+		labelID.setBounds(69, 98, 30, 13);
 		add(labelID);
 		
 		textFieldID = new JTextField();
-		textFieldID.setBounds(109, 87, 96, 19);
+		textFieldID.setBounds(109, 87, 131, 36);
 		add(textFieldID);
 		textFieldID.setColumns(10);
 		
 		JLabel labelPassword = new JLabel("Password : ");
-		labelPassword.setBounds(262, 90, 70, 13);
+		labelPassword.setBounds(262, 98, 70, 13);
 		add(labelPassword);
 		
 		textFieldPassword = new JTextField();
-		textFieldPassword.setBounds(327, 87, 96, 19);
+		textFieldPassword.setBounds(342, 87, 131, 36);
 		add(textFieldPassword);
 		textFieldPassword.setColumns(10);
 		

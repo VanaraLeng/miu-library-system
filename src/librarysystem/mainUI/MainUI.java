@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 
 public class MainUI extends JFrame {
@@ -40,6 +41,7 @@ public class MainUI extends JFrame {
     }
 	private JTextField txtFieldMessage = new JTextField();
 	private JPanel panel_1;
+	private JScrollPane scrollPane_1;
 	public void clear() {
 		txtFieldMessage.setText("");
 	}
@@ -50,28 +52,33 @@ public class MainUI extends JFrame {
 			panelMenu = (JPanel) new Menu();
 			panelMenu.setBounds(0, 0, 194, 553);
 			getContentPane().add(panelMenu);
-		//	********************This is for the message**********************
+			
 
-			panelMessage = new JPanel();
-			panelMessage.setBounds(199, 448, 577, 105);
-			getContentPane().add(panelMessage);
-			panelMessage.setLayout(null);
 			
-			textFieldMessage = new JTextArea();
-			textFieldMessage.setBounds(21, 10, 694, 85);
-			panelMessage.add(textFieldMessage);
-			
-			JScrollBar scrollBar = new JScrollBar();
-			scrollBar.setBounds(669, 10, 46, 85);
-			scrollBar.setVisible(true);
-			panelMessage.add(scrollBar);
 		//	******************************************
 		//	********************This is for the login window**********************
 		
 			panel_to_change =  LoginWindow.INSTANCE;
 			panel_to_change.setBounds(202, 0, 536, 438);
 			getContentPane().add(panel_to_change);
+			
+		//	********************This is for the message**********************
+
+			panelMessage = new JPanel();
+			panelMessage.setBounds(22, 450, 730, 103);
+			panelMessage.setLayout(null);
+			
+			textFieldMessage = new JTextArea();
+			textFieldMessage.setBounds(21, 10, 694, 85);
+			//panelMessage.add(textFieldMessage);
 		//	******************************************
+			
+			
+			JScrollPane scrollPane = new JScrollPane(textFieldMessage);
+			scrollPane.setBounds(30, 448, 732, 105);
+			scrollPane.setViewportView(textFieldMessage);
+			getContentPane().add(scrollPane);
+			
 			
 			setSize(800, 600);		
     		isInitialized(true);
