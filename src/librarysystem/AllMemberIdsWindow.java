@@ -14,7 +14,7 @@ import business.ControllerInterface;
 import business.SystemController;
 
 
-public class AllMemberIdsWindow extends JFrame implements LibWindow {
+public class AllMemberIdsWindow extends JPanel implements LibWindow {
 	public static final AllMemberIdsWindow INSTANCE = new AllMemberIdsWindow();
     ControllerInterface ci = new SystemController();
 	private boolean isInitialized = false;
@@ -24,21 +24,21 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 	private JPanel mainPanel;
 	private JPanel topPanel;
 	private JPanel middlePanel;
-	private JPanel lowerPanel;
 	private TextArea textArea;
 	
-	private AllMemberIdsWindow() {}
+	private AllMemberIdsWindow() {init();}
 	
 	public void init() {
 		mainPanel = new JPanel();
+		mainPanel.setBounds(110, 35, 302, 242);
 		mainPanel.setLayout(new BorderLayout());
 		defineTopPanel();
 		defineMiddlePanel();
 		defineLowerPanel();
+		setLayout(null);
 		mainPanel.add(topPanel, BorderLayout.NORTH);
-		mainPanel.add(middlePanel, BorderLayout.CENTER);	
-		mainPanel.add(lowerPanel, BorderLayout.SOUTH);
-		getContentPane().add(mainPanel);
+		mainPanel.add(middlePanel, BorderLayout.CENTER);
+		add(mainPanel);
 		isInitialized = true;
 	}
 	
@@ -60,22 +60,12 @@ public class AllMemberIdsWindow extends JFrame implements LibWindow {
 	}
 	
 	public void defineLowerPanel() {
-		lowerPanel = new JPanel();
-		FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
-		lowerPanel.setLayout(fl);
-		JButton backButton = new JButton("<== Back to Main");
-		addBackButtonListener(backButton);
-		lowerPanel.add(backButton);
 	}
 	
 	public void setData(String data) {
 		textArea.setText(data);
 	}
 	private void addBackButtonListener(JButton butn) {
-		butn.addActionListener(evt -> {
-		   LibrarySystem.hideAllWindows();
-		   LibrarySystem.INSTANCE.setVisible(true);
-	    });
 	}
 
 	@Override

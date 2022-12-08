@@ -13,7 +13,7 @@ import business.SystemController;
 import librarysystem.LibWindow;
 import javax.swing.JTable;
 
-public class AddBookCopyWindow  extends JFrame implements LibWindow {
+public class AddBookCopyWindow  extends JPanel implements LibWindow {
     /**
 	 * 
 	 */
@@ -36,10 +36,11 @@ public class AddBookCopyWindow  extends JFrame implements LibWindow {
 	private JTextField textFieldID;
 	private JTextField textFieldISBN;
 	/* This class is a singleton */
-    private AddBookCopyWindow () {    	
+    private AddBookCopyWindow () {    init();	
     	}
     
     public void init() {   
+			setLayout(null);
 
 		//	********************This is for the message**********************
 
@@ -48,20 +49,20 @@ public class AddBookCopyWindow  extends JFrame implements LibWindow {
 //			setBounds(147, 10, 499, 349);
 			
 			JLabel lblNewLabel = new JLabel("Adding a new Book Copy");
-			lblNewLabel.setBounds(166, 10, 144, 13);
+			lblNewLabel.setBounds(195, 59, 150, 13);
 			add(lblNewLabel);
 			
 			JLabel labelISBN = new JLabel("ISBN : ");
-			labelISBN.setBounds(131, 88, 45, 13);
+			labelISBN.setBounds(179, 149, 62, 13);
 			add(labelISBN);
 			
 			textFieldISBN = new JTextField();
-			textFieldISBN.setBounds(218, 85, 96, 19);
+			textFieldISBN.setBounds(270, 146, 141, 19);
 			add(textFieldISBN);
 			textFieldISBN.setColumns(10);
 			
-			JButton btnAddBookCopy = new JButton("Add");
-			btnAddBookCopy.setBounds(166, 213, 85, 21);
+			JButton btnAddBookCopy = new JButton("Add a copy");
+			btnAddBookCopy.setBounds(211, 216, 115, 21);
 			addButtonAddBookCopyListener(btnAddBookCopy);
 			add(btnAddBookCopy);
 		//	******************************************
@@ -70,7 +71,7 @@ public class AddBookCopyWindow  extends JFrame implements LibWindow {
 			
 		//	******************************************
 			
-			setSize(660,500);		
+			setSize(595,442);		
     		isInitialized(true);
 //    		pack();
     		//setSize(660, 500);

@@ -56,6 +56,7 @@ public class MainUI extends JFrame {
     private MainUI () { init();
     }
 	private JTextField txtFieldMessage = new JTextField();
+	private JPanel panel_1;
 	public void clear() {
 		txtFieldMessage.setText("");
 	}
@@ -64,7 +65,7 @@ public class MainUI extends JFrame {
 		    
 			
 			panelMenu = (JPanel) new Menu();
-			panelMenu.setBounds(0, 0, 144, 438);
+			panelMenu.setBounds(0, 0, 194, 438);
 			getContentPane().add(panelMenu);
 		//	********************This is for the message**********************
 
@@ -80,12 +81,8 @@ public class MainUI extends JFrame {
 		//	********************This is for the login window**********************
 		
 			panel_to_change =  LoginWindow.INSTANCE;
-			panel_to_change.setBounds(143, 0, 633, 438);
-			add(panel_to_change);
-
-
-//			setMainPanel();
-			
+			panel_to_change.setBounds(202, 0, 536, 438);
+			getContentPane().add(panel_to_change);
 		//	******************************************
 			
 			setSize(800, 600);		
@@ -96,13 +93,11 @@ public class MainUI extends JFrame {
     }
     
     public void setMainPanel(JPanel panel) {
-    	System.out.println("hooooo");
-    	remove(panel_to_change);
+    	panel_to_change.setVisible(false);
+//    	remove(panel_to_change);
     	panel_to_change= panel;
-    	panel_to_change.setBounds(143, 0, 633, 438);
-		add(panel_to_change);
+    	panel_to_change.setBounds(202, 0, 536, 438);
+		getContentPane().add(panel_to_change);
+		panel_to_change.setVisible(true);
     }
-    
-    
-    
 }

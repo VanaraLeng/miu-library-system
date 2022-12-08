@@ -31,7 +31,7 @@ public class LibrarySystem extends JFrame implements LibWindow {
     
     private static LibWindow[] allWindows = { 
     	LibrarySystem.INSTANCE,
-		LoginWindow.INSTANCE,
+//		LoginWindow.INSTANCE,
 		AllMemberIdsWindow.INSTANCE,	
 		AllBookIdsWindow.INSTANCE
 	};
@@ -96,9 +96,9 @@ public class LibrarySystem extends JFrame implements LibWindow {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			LibrarySystem.hideAllWindows();
-			LoginWindow.INSTANCE.init();
-			Util.centerFrameOnDesktop(LoginWindow.INSTANCE);
-			LoginWindow.INSTANCE.setVisible(true);
+//			LoginWindow.INSTANCE.init();
+//			Util.centerFrameOnDesktop(LoginWindow.INSTANCE);
+//			LoginWindow.INSTANCE.setVisible(true);
 			
 		}
     	
@@ -133,7 +133,7 @@ public class LibrarySystem extends JFrame implements LibWindow {
 		public void actionPerformed(ActionEvent e) {
 			LibrarySystem.hideAllWindows();
 			AllMemberIdsWindow.INSTANCE.init();
-			AllMemberIdsWindow.INSTANCE.pack();
+//			AllMemberIdsWindow.INSTANCE.pack();
 			AllMemberIdsWindow.INSTANCE.setVisible(true);
 			
 			
@@ -148,7 +148,7 @@ public class LibrarySystem extends JFrame implements LibWindow {
 			}
 			System.out.println(sb.toString());
 			AllMemberIdsWindow.INSTANCE.setData(sb.toString());
-			AllMemberIdsWindow.INSTANCE.pack();
+//			AllMemberIdsWindow.INSTANCE.pack();
 			//AllMemberIdsWindow.INSTANCE.setSize(660,500);
 			Util.centerFrameOnDesktop(AllMemberIdsWindow.INSTANCE);
 			AllMemberIdsWindow.INSTANCE.setVisible(true);
