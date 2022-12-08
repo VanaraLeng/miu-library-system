@@ -14,14 +14,14 @@ public class CheckoutRecord implements Serializable {
 	
 	
 	
-	CheckoutRecord(LibraryMember member, LocalDate checkoutDate, BookCopy bookCopy) {
+	CheckoutRecord(LibraryMember member, BookCopy bookCopy) {
 		this.member = member;
-		checkoutEntries.add(new CheckoutEntry(checkoutDate, bookCopy));
+		checkoutEntries.add(new CheckoutEntry(LocalDate.now(), bookCopy));
 	}
 	
-	CheckoutRecord(LibraryMember member, LocalDate checkoutDate) {
-		this.member = member;
-	}
+//	CheckoutRecord(LibraryMember member, LocalDate checkoutDate) {
+//		this.member = member;
+//	}
 	
 	public LibraryMember getMember() {
 		return this.member;

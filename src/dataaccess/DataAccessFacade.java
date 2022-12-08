@@ -53,6 +53,14 @@ public class DataAccessFacade implements DataAccess {
 		saveNewMember(member);
 	}
 	
+	public void updateMember(LibraryMember member) {
+		saveNewMember(member);
+	}
+	
+	public void updateBook(Book book) {
+		saveNewBook(book);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public  HashMap<String,Book> readBooksMap() {
 		//Returns a Map with name/value pairs being

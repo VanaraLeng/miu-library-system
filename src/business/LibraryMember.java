@@ -7,31 +7,23 @@ import java.util.List;
 
 final public class LibraryMember extends Person implements Serializable {
 	private String memberId;
-	private List<CheckoutRecord> checkoutRecords;
+	private CheckoutRecord checkoutRecord;
 	
 	public LibraryMember(String memberId, String fname, String lname, String tel, Address add) {
 		super(fname,lname, tel, add);
 		this.memberId = memberId;	
-		this.checkoutRecords = new ArrayList<>();
 	}
 	
 	public String getMemberId() {
 		return memberId;
 	}
 
-	public CheckoutRecord addCheckoutRecord(LocalDate checkoutDate, BookCopy bookCopy) {
-		if (checkoutRecords == null) {
-			checkoutRecords = new ArrayList<>();
-		}
-		CheckoutRecord cr = new CheckoutRecord(this, checkoutDate, bookCopy);
-		checkoutRecords.add(cr);
-		
-		return cr;
+	public CheckoutRecord addCheckoutRecord(BookCopy bookCopy) {
+		return new CheckoutRecord(this, bookCopy);
 	}
 
-	
-	public List<CheckoutRecord> getCheckoutRecords() {
-		return this.checkoutRecords;
+	public CheckoutRecord getCheckoutRecord() {
+		return this.checkoutRecord;
 	}
 	
 	@Override

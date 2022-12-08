@@ -12,16 +12,18 @@ public interface ControllerInterface {
 	public List<String> allMemberIds();
 	public List<String> allBookIds();
 	
-	public void addMember(String mId, String fname, String lname, String street, String city, String state, String zip, String tel);
-	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors, int numCopy) throws LibrarySystemException;
+	public void addMember(LibraryMember member) throws LibrarySystemException;
+	public void addBook(Book book) throws LibrarySystemException;
 	public void addBookCopy(String isbn) throws LibrarySystemException;
+	public void updateMember(LibraryMember member) throws LibrarySystemException;
+	public void updateBook(Book book) throws LibrarySystemException;
 	
 	public LibraryMember getMember(String mId) throws LibrarySystemException;
-	public CheckoutRecord createCheckoutRecord(LibraryMember member);
+	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException;
 	public BookCopy getBookCopy(String isbn) throws LibrarySystemException;
-	public void addBookCopy(CheckoutRecord rec, BookCopy book, LocalDate date);
+	public void checkoutBookCopy(CheckoutRecord rec, BookCopy book) throws LibrarySystemException;
 	
 	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException;
-	public List<CheckoutRecord> getCheckoutRecords(String mId) throws LibrarySystemException;
+	public CheckoutRecord getCheckoutRecord(String mId) throws LibrarySystemException;
 	public Book getBook(String isbn) throws LibrarySystemException;
 }

@@ -44,29 +44,45 @@ public class SystemController implements ControllerInterface {
 	
 	
 	@Override
-	public void addMember(String mId, String fname, String lname, String street, String city, String state, String zip, String tel) {
-		//data validation here!!
-		Address address = new Address(street, city, state, zip);
-		LibraryMember member = new LibraryMember(mId, fname, lname, tel, address);
+	public void addMember(LibraryMember member) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+		if (memberMap.containsKey(member.getMemberId())) {
+			throw new LibrarySystemException("Member id already exist");
+		}
 		da.saveNewMember(member);
 	}
 	
 	@Override
-	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors, int numCopy) throws LibrarySystemException {
+	public void updateMember(LibraryMember member) throws LibrarySystemException {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+		if (!memberMap.containsKey(member.getMemberId())) {
+			throw new LibrarySystemException("Member does not already exist");
+		}
+		da.updateMember(member);
+	}
+	
+	@Override
+	public void addBook(Book book) throws LibrarySystemException {
 		//check if book is already exist
 		DataAccess da = new DataAccessFacade();
 		HashMap<String,Book> map = da.readBooksMap();
-		if (map.containsKey(isbn)) {
-			throw new LibrarySystemException("Book with ISBN " + isbn + " already existed!");
+		if (map.containsKey(book.getIsbn())) {
+			throw new LibrarySystemException("Book with ISBN " + book.getIsbn() + " already existed!");
 		}
 		
-		//add new book
-		Book book = new Book(isbn, title, maxCheckoutLength, authors);
-		for (int i = 1; i < numCopy; i++) {
-			book.addCopy();
-		}
 		da.saveNewBook(book);
+	}
+	
+	@Override
+	public void updateBook(Book book) throws LibrarySystemException {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, Book> bookMap = da.readBooksMap();
+		if (!bookMap.containsKey(book.getIsbn())) {
+			throw new LibrarySystemException("Book does not exist");
+		}
+		da.updateBook(book);
 	}
 	
 	@Override
@@ -101,7 +117,7 @@ public class SystemController implements ControllerInterface {
 		
 		LibraryMember member = memberMap.get(mId);
 		Book book = bookMap.get(isbn);
-		CheckoutRecord cr = member.addCheckoutRecord(LocalDate.now(), book.getNextAvailableCopy());
+		CheckoutRecord cr = member.addCheckoutRecord(book.getNextAvailableCopy());
 		da.saveCheckoutRecord(member);
 		return cr;
 	}
@@ -125,14 +141,31 @@ public class SystemController implements ControllerInterface {
 		return book.getNextAvailableCopy();
 	}
 	
-	public CheckoutRecord createCheckoutRecord(LibraryMember member) {
-		CheckoutRecord record = new CheckoutRecord(member, LocalDate.now());
-		return record;
+	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException {
+		if (!bookCopy.isAvailable()) {
+			throw new LibrarySystemException("Book is not available");
+		}
+		
+		//add the record
+		member.addCheckoutRecord(bookCopy);
+		
+		//save to database
+		DataAccess da = new DataAccessFacade();
+		da.updateMember(member);
+		
+		//return the record
+		return member.getCheckoutRecord();
 	}
 	
-	public void addBookCopy(CheckoutRecord rec, BookCopy book, LocalDate date) {
-		CheckoutEntry entry = new CheckoutEntry(date, book);
+	public void checkoutBookCopy(CheckoutRecord rec, BookCopy bookCopy) throws LibrarySystemException {
+		if (!bookCopy.isAvailable()) {
+			throw new LibrarySystemException("Book is not available");
+		}
+		bookCopy.changeAvailability();
+		CheckoutEntry entry = new CheckoutEntry(LocalDate.now(), bookCopy);
 		rec.addCheckoutEntry(entry);
+		DataAccess da = new DataAccessFacade();
+		da.updateMember(rec.getMember());
 	}
 	
 	public static Author createAuthor(String fn, String ln, String tel, String bio, String street, String city, String state, String zip) {
@@ -141,13 +174,13 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public List<CheckoutRecord> getCheckoutRecords(String mId) throws LibrarySystemException {
+	public CheckoutRecord getCheckoutRecord(String mId) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
 		if (!memberMap.containsKey(mId)) {
 			throw new LibrarySystemException("Member not found");
 		}
-		return memberMap.get(mId).getCheckoutRecords();
+		return memberMap.get(mId).getCheckoutRecord();
 	}
 	
 	@Override
