@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 
 import business.LoginException;
 import business.SystemController;
+import librarysystem.mainUI.MainUI;
 
 public class LoginWindow extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -64,6 +65,7 @@ public class LoginWindow extends JPanel{
 		butn.addActionListener(evt -> {
 			SystemController sysCtrl= new SystemController();
 			sysCtrl.logout();
+			MainUI.INSTANCE.setMessage("Logout successful");
 		});
 	}
 	
@@ -71,10 +73,11 @@ public class LoginWindow extends JPanel{
 		butn.addActionListener(evt -> {
 			SystemController sysCtrl= new SystemController();
 			try {
-				sysCtrl.login(textFieldID.getText(),textFieldID.getText());
+				sysCtrl.login(textFieldID.getText(),textFieldPassword.getText());
+				MainUI.INSTANCE.setMessage("Login successful");
 			} catch (LoginException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MainUI.INSTANCE.setMessage(e.getMessage());
 			}
 				
 		});

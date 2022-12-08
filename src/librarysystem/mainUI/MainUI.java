@@ -29,6 +29,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.BoxLayout;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
 
 
 public class MainUI extends JFrame {
@@ -45,6 +47,7 @@ public class MainUI extends JFrame {
 	JPanel panel_to_change;
 	JPanel panelMenu;
 	JPanel panelMessage;
+	JTextArea textFieldMessage;
 	public boolean isInitialized() {
 		return isInitialized;
 	}
@@ -74,9 +77,14 @@ public class MainUI extends JFrame {
 			getContentPane().add(panelMessage);
 			panelMessage.setLayout(null);
 			
-			txtFieldMessage = new JTextField();
-			txtFieldMessage.setBounds(126, 34, 378, 35);
-			panelMessage.add(txtFieldMessage);
+			textFieldMessage = new JTextArea();
+			textFieldMessage.setBounds(21, 10, 694, 85);
+			panelMessage.add(textFieldMessage);
+			
+			JScrollBar scrollBar = new JScrollBar();
+			scrollBar.setBounds(669, 10, 46, 85);
+			scrollBar.setVisible(true);
+			panelMessage.add(scrollBar);
 		//	******************************************
 		//	********************This is for the login window**********************
 		
@@ -90,6 +98,9 @@ public class MainUI extends JFrame {
 //    		pack();
     		//setSize(660, 500);  
     		
+    }
+    public void setMessage(String str) {
+    	textFieldMessage.setText(str);
     }
     
     public void setMainPanel(JPanel panel) {

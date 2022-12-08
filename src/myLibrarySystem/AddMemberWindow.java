@@ -6,9 +6,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import business.Address;
+import business.LibraryMember;
+import business.LibrarySystemException;
 import business.LoginException;
 import business.SystemController;
 import librarysystem.LibWindow;
+import librarysystem.mainUI.MainUI;
+import utility.Validator;
 
 public class AddMemberWindow extends JPanel implements LibWindow {
     /**
@@ -142,12 +147,39 @@ public class AddMemberWindow extends JPanel implements LibWindow {
     		
     	
     }
+    private String checkInputValidity() {
+//    	all good if returns null otherwise returns the errors
+    	String message ="";
+		if(!Validator.isFilled(textFieldID.getText())) {message+=" The ID is empty"+ System.lineSeparator() ;}
+		if(!Validator.isFilled(textFieldFirstName.getText())) {message+=" The first name is incorrect"+ System.lineSeparator();}
+		if(!Validator.isFilled(textFieldLastName.getText())) {message+=" The last name is incorrect"+ System.lineSeparator();}
+		if(!Validator.isCorrectPhoneNumber(textFieldTelephone.getText())) {message+=" The telephone is incorrect"+ System.lineSeparator();}
+		if(!Validator.isFilled(textFieldStreet.getText())) {message+=" The street is incorrect"+ System.lineSeparator();}
+		if(!Validator.isFilled(textFieldCity.getText())) {message+=" The city is incorrect"+ System.lineSeparator();}
+		if(!Validator.isFilled(textFieldState.getText())) {message+=" The state is incorrect"+ System.lineSeparator();}
+		if(!Validator.isCorrectZipCode(textFieldZip.getText())) {message+=" The Zip Code is incorrect"+ System.lineSeparator();}
+		System.out.println(message);
+		return message;
+    	
+    }
     private void addButtonAddMemberListener(JButton butn) {
 		butn.addActionListener(evt -> {
-			SystemController sysCtrl= new SystemController();
-			sysCtrl.addMember(textFieldID.getText(), textFieldFirstName.getText(), textFieldLastName.getText(),
-					 textFieldStreet.getText(), textFieldCity.getText(),
-					textFieldState.getText(), textFieldZip.getText(), textFieldTelephone.getText());
+			if(checkInputValidity()=="") {
+				SystemController sysCtrl= new SystemController();
+				Address address= new Address(textFieldStreet.getText(), textFieldCity.getText(),
+						textFieldState.getText(), textFieldZip.getText());
+				LibraryMember member = new LibraryMember(textFieldID.getText(), textFieldFirstName.getText(), 
+						textFieldLastName.getText(), textFieldTelephone.getText(), address);
+				try {
+					sysCtrl.addMember(member);
+				} catch (LibrarySystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				MainUI.INSTANCE.setMessage("     Copy added successfully");
+			}else {
+				MainUI.INSTANCE.setMessage(checkInputValidity());
+			}
 			//might require exception handling
 
 		});

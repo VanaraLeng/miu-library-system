@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import business.SystemController;
+import dataaccess.Auth;
 import librarysystem.checkout.CheckoutPanel;
 import librarysystem.AllMemberIdsWindow;
 import librarysystem.authentication.LoginWindow;
@@ -31,7 +33,17 @@ public class Menu extends JPanel {
     	btnAddMember.setBounds(10, 65, 154, 21);
     	btnAddMember.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(AddMemberWindow.INSTANCE);
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    				MainUI.INSTANCE.setMessage("");
+        			MainUI.INSTANCE.setMainPanel(AddMemberWindow.INSTANCE);
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    				
+    			}
     		}
     	});
     	add(btnAddMember);
@@ -39,6 +51,7 @@ public class Menu extends JPanel {
     	btnLoginLogout = new JButton("Login/Logout");
     	btnLoginLogout.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
+    			MainUI.INSTANCE.setMessage("");
     			MainUI.INSTANCE.setMainPanel(LoginWindow.INSTANCE);
     		}
     	});
@@ -49,7 +62,16 @@ public class Menu extends JPanel {
     	btnAddBook.setBounds(10, 103, 154, 21);
     	btnAddBook.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+        			MainUI.INSTANCE.setMessage("");
+        			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnAddBook);
@@ -58,7 +80,16 @@ public class Menu extends JPanel {
     	btnAddBookCopy.setBounds(10, 141, 154, 21);
     	btnAddBookCopy.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel( AddBookCopyWindow.INSTANCE);
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    				MainUI.INSTANCE.setMessage("");
+    				MainUI.INSTANCE.setMainPanel( AddBookCopyWindow.INSTANCE);
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnAddBookCopy);
@@ -67,7 +98,16 @@ public class Menu extends JPanel {
     	btnCheckoutBook.setBounds(10, 179, 154, 21);
     	btnCheckoutBook.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(new CheckoutPanel());
+    			if(SystemController.currentAuth==Auth.LIBRARIAN || SystemController.currentAuth==Auth.BOTH) {
+    				MainUI.INSTANCE.setMessage("");
+    				MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnCheckoutBook);
@@ -76,7 +116,16 @@ public class Menu extends JPanel {
     	btnCheckoutRecord.setBounds(10, 217, 154, 21);
     	btnCheckoutRecord.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			if(SystemController.currentAuth==Auth.LIBRARIAN || SystemController.currentAuth==Auth.BOTH) {
+    				MainUI.INSTANCE.setMessage("");
+    				MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnCheckoutRecord);
@@ -85,7 +134,16 @@ public class Menu extends JPanel {
     	btnCheckoutOverdue.setBounds(10, 255, 154, 21);
     	btnCheckoutOverdue.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+        			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+        			MainUI.INSTANCE.setMessage("");
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnCheckoutOverdue);
@@ -94,7 +152,16 @@ public class Menu extends JPanel {
     	btnAllMembers.setBounds(10, 293, 154, 21);
     	btnAllMembers.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel( AllMemberIdsWindow.INSTANCE);
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    				MainUI.INSTANCE.setMessage("");
+    				MainUI.INSTANCE.setMainPanel( AllMemberIdsWindow.INSTANCE);
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnAllMembers);
@@ -103,7 +170,16 @@ public class Menu extends JPanel {
     	btnAllBooks.setBounds(10, 331, 154, 21);
     	btnAllBooks.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.LIBRARIAN) {
+        			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+        			MainUI.INSTANCE.setMessage("");
+    			}
+    			else {
+    				if(SystemController.currentAuth==null)
+    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				else
+    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    			}
     		}
     	});
     	add(btnAllBooks);

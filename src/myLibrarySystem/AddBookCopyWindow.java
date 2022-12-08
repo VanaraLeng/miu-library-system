@@ -11,6 +11,8 @@ import business.LibrarySystemException;
 import business.LoginException;
 import business.SystemController;
 import librarysystem.LibWindow;
+import librarysystem.mainUI.MainUI;
+
 import javax.swing.JTable;
 
 public class AddBookCopyWindow  extends JPanel implements LibWindow {
@@ -85,8 +87,10 @@ public class AddBookCopyWindow  extends JPanel implements LibWindow {
     			SystemController sysCtrl= new SystemController();
     			try {
 					sysCtrl.addBookCopy(textFieldISBN.getText());
+					MainUI.INSTANCE.setMessage("     Copy added successfully");
 				} catch (LibrarySystemException e) {
 					// TODO Auto-generated catch block
+					MainUI.INSTANCE.setMessage("     Couldn't add the copy");
 					e.printStackTrace();
 				}
 
