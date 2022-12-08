@@ -99,28 +99,28 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException {
-		DataAccess da = new DataAccessFacade();
-		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
-		if(!memberMap.containsKey(mId)) {
-			throw new LibrarySystemException("ID " + mId + " not found");
-		}
-		
-		HashMap<String,Book> bookMap = da.readBooksMap();
-		if(!bookMap.containsKey(isbn)) {
-			throw new LibrarySystemException("Book with ISBN " + isbn + " not found!");
-		}
-		
-		if (!bookMap.get(isbn).isAvailable()) {
-			throw new LibrarySystemException("Book is not available.");
-		}
-		
-		LibraryMember member = memberMap.get(mId);
-		Book book = bookMap.get(isbn);
-		CheckoutRecord cr = member.addCheckoutRecord(book.getNextAvailableCopy());
-		da.saveCheckoutRecord(member);
-		return cr;
-	}
+//	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException {
+//		DataAccess da = new DataAccessFacade();
+//		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+//		if(!memberMap.containsKey(mId)) {
+//			throw new LibrarySystemException("ID " + mId + " not found");
+//		}
+//		
+//		HashMap<String,Book> bookMap = da.readBooksMap();
+//		if(!bookMap.containsKey(isbn)) {
+//			throw new LibrarySystemException("Book with ISBN " + isbn + " not found!");
+//		}
+//		
+//		if (!bookMap.get(isbn).isAvailable()) {
+//			throw new LibrarySystemException("Book is not available.");
+//		}
+//		
+//		LibraryMember member = memberMap.get(mId);
+//		Book book = bookMap.get(isbn);
+//		CheckoutRecord cr = member.addCheckoutRecord(book.getNextAvailableCopy());
+//		da.saveCheckoutRecord(member);
+//		return cr;
+//	}
 	
 	public LibraryMember getMember(String mId) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
@@ -141,21 +141,21 @@ public class SystemController implements ControllerInterface {
 		return book.getNextAvailableCopy();
 	}
 	
-	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException {
-		if (!bookCopy.isAvailable()) {
-			throw new LibrarySystemException("Book is not available");
-		}
-		
-		//add the record
-		member.addCheckoutRecord(bookCopy);
-		
-		//save to database
-		DataAccess da = new DataAccessFacade();
-		da.updateMember(member);
-		
-		//return the record
-		return member.getCheckoutRecord();
-	}
+//	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException {
+//		if (!bookCopy.isAvailable()) {
+//			throw new LibrarySystemException("Book is not available");
+//		}
+//		
+//		//add the record
+//		member.addCheckoutRecord(bookCopy);
+//		
+//		//save to database
+//		DataAccess da = new DataAccessFacade();
+//		da.updateMember(member);
+//		
+//		//return the record
+//		return member.getCheckoutRecord();
+//	}
 	
 	public void checkoutBookCopy(CheckoutRecord rec, BookCopy bookCopy) throws LibrarySystemException {
 		if (!bookCopy.isAvailable()) {
@@ -165,6 +165,7 @@ public class SystemController implements ControllerInterface {
 		CheckoutEntry entry = new CheckoutEntry(LocalDate.now(), bookCopy);
 		rec.addCheckoutEntry(entry);
 		DataAccess da = new DataAccessFacade();
+		da.updateBook(bookCopy.getBook());
 		da.updateMember(rec.getMember());
 	}
 	

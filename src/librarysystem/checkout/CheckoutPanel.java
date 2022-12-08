@@ -109,11 +109,9 @@ public class CheckoutPanel extends JPanel {
 		try {
 			if (record == null) {
 				LibraryMember member = ci.getMember(mid);
-				record = ci.createCheckoutRecord(member);	
+				BookCopy bookCopy = ci.getBookCopy(isbn);
+				ci.checkoutBookCopy(member.getCheckoutRecord(), bookCopy);
 			}
-			
-			BookCopy copy = ci.getBookCopy(isbn);
-			ci.addBookCopy(record, copy, LocalDate.now());
 			
 			setupTable(record.getCheckoutEntries());
 			

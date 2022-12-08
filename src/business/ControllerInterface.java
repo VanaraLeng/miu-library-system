@@ -19,11 +19,11 @@ public interface ControllerInterface {
 	public void updateBook(Book book) throws LibrarySystemException;
 	
 	public LibraryMember getMember(String mId) throws LibrarySystemException;
-	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException;
+//	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException;
 	public BookCopy getBookCopy(String isbn) throws LibrarySystemException;
 	public void checkoutBookCopy(CheckoutRecord rec, BookCopy book) throws LibrarySystemException;
 	
-	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException;
+//	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException;
 	public CheckoutRecord getCheckoutRecord(String mId) throws LibrarySystemException;
 	public Book getBook(String isbn) throws LibrarySystemException;
 }

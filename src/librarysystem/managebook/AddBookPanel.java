@@ -153,7 +153,7 @@ public class AddBookPanel extends JPanel {
 
 		// Add to system
 		try {
-			ci.addBook(isbn, title, length, authors, numCopy);
+			ci.addBook(book);
 			System.out.print(book.getTitle() + " is added");
 			
 			clearInput();
