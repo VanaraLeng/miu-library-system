@@ -6,52 +6,72 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Menu extends JPanel {
+import librarysystem.authentication.LoginWindow;
+import librarysystem.mainUI.MainUI;
 
+public class Menu extends JPanel {
+	JButton btnAddMember;
+	JButton btnLoginLogout;
+	JButton btnAddBook;
+	JButton btnAddBookCopy;
+	JButton btnCheckoutBook;
+	JButton btnCheckoutRecord;
+	JButton btnCheckoutOverdue;
+	JButton btnAllMembers;
+	JButton btnAllMembers_1;
+	
 	public Menu() {
 		setBounds(0, 0, 144, 359);
     	setLayout(null);
     	
-    	JButton btnAddMember = new JButton("Add Member");
+    	btnAddMember = new JButton("Add Member");
     	btnAddMember.setBounds(10, 55, 124, 21);
+    	btnAddMember.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			System.out.println("hiiii");
+    			MainUI.INSTANCE.setMainPanel(AddMemberWindow.INSTANCE);
+    		}
+    	});
     	add(btnAddMember);
     	
-    	JButton btnLoginLogout = new JButton("Login/Logout");
+    	btnLoginLogout = new JButton("Login/Logout");
     	btnLoginLogout.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
+    			MainUI.INSTANCE.setMainPanel(LoginWindow.INSTANCE);
     		}
     	});
     	btnLoginLogout.setBounds(10, 17, 124, 21);
     	add(btnLoginLogout);
     	
-    	JButton btnAddBook = new JButton("Add Book");
+    	btnAddBook = new JButton("Add Book");
     	btnAddBook.setBounds(10, 93, 124, 21);
     	add(btnAddBook);
     	
-    	JButton btnAddBookCopy = new JButton("Add Book Copy");
+    	btnAddBookCopy = new JButton("Add Book Copy");
     	btnAddBookCopy.setBounds(10, 131, 124, 21);
     	add(btnAddBookCopy);
     	
-    	JButton btnCheckoutBook = new JButton("Checkout Book");
+    	btnCheckoutBook = new JButton("Checkout Book");
     	btnCheckoutBook.setBounds(10, 169, 124, 21);
     	add(btnCheckoutBook);
     	
-    	JButton btnCheckoutRecord = new JButton("Checkout Record");
+    	btnCheckoutRecord = new JButton("Checkout Record");
     	btnCheckoutRecord.setBounds(10, 207, 124, 21);
     	add(btnCheckoutRecord);
     	
-    	JButton btnCheckoutOverdue = new JButton("Checkout Overdue");
+    	btnCheckoutOverdue = new JButton("Checkout Overdue");
     	btnCheckoutOverdue.setBounds(10, 245, 124, 21);
     	add(btnCheckoutOverdue);
     	
-    	JButton btnAllMembers = new JButton("All Members");
+    	btnAllMembers = new JButton("All Members");
     	btnAllMembers.setBounds(10, 283, 124, 21);
     	add(btnAllMembers);
     	
-    	JButton btnAllMembers_1 = new JButton("All Books");
+    	btnAllMembers_1 = new JButton("All Books");
     	btnAllMembers_1.setBounds(10, 321, 124, 21);
     	add(btnAllMembers_1);
 	}
+	
 	private static final long serialVersionUID = 1L;
 
 }

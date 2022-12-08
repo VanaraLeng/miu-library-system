@@ -15,6 +15,10 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class AddBookPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textFieldTitle;
 	private JTextField textFieldIsbn;
 	private JTextField textFieldLength;

@@ -1,0 +1,108 @@
+package librarysystem.mainUI;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
+
+import business.ControllerInterface;
+import business.LoginException;
+import business.SystemController;
+import librarysystem.LibWindow;
+import librarysystem.LibrarySystem;
+import librarysystem.Util;
+import librarysystem.authentication.LoginWindow;
+import librarysystem.managebook.AddBookPanel;
+import myLibrarySystem.Menu;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.CardLayout;
+import javax.swing.BoxLayout;
+
+
+public class MainUI extends JFrame {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static final MainUI INSTANCE = new MainUI();
+	
+	private boolean isInitialized = false;
+	
+
+	JPanel panel_to_change;
+	JPanel panelMenu;
+	JPanel panelMessage;
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+	public void isInitialized(boolean val) {
+		isInitialized = val;
+	}
+
+	/* This class is a singleton */
+    private MainUI () { init();
+    }
+	private JTextField txtFieldMessage = new JTextField();
+	public void clear() {
+		txtFieldMessage.setText("");
+	}
+    public void init() {   
+		    getContentPane().setLayout(null);
+		    
+			
+			panelMenu = (JPanel) new Menu();
+			panelMenu.setBounds(0, 0, 144, 438);
+			getContentPane().add(panelMenu);
+		//	********************This is for the message**********************
+
+			panelMessage = new JPanel();
+			panelMessage.setBounds(10, 448, 766, 105);
+			getContentPane().add(panelMessage);
+			panelMessage.setLayout(null);
+			
+			txtFieldMessage = new JTextField();
+			txtFieldMessage.setBounds(126, 34, 378, 35);
+			panelMessage.add(txtFieldMessage);
+		//	******************************************
+		//	********************This is for the login window**********************
+		
+			panel_to_change =  LoginWindow.INSTANCE;
+			panel_to_change.setBounds(143, 0, 633, 438);
+			add(panel_to_change);
+
+
+//			setMainPanel();
+			
+		//	******************************************
+			
+			setSize(800, 600);		
+    		isInitialized(true);
+//    		pack();
+    		//setSize(660, 500);  
+    		
+    }
+    
+    public void setMainPanel(JPanel panel) {
+    	System.out.println("hooooo");
+    	remove(panel_to_change);
+    	panel_to_change= panel;
+    	panel_to_change.setBounds(143, 0, 633, 438);
+		add(panel_to_change);
+    }
+    
+    
+    
+}

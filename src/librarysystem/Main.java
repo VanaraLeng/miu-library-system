@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import librarysystem.mainUI.MainUI;
+
 
 
 public class Main {
@@ -13,12 +15,12 @@ public class Main {
 	public static void main(String[] args) {
 	      EventQueue.invokeLater(() -> 
 	         {
-	            LibrarySystem.INSTANCE.setTitle("Sample Library Application");
-	            LibrarySystem.INSTANCE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	            MainUI.INSTANCE.setTitle("Sample Library Application");
+	            MainUI.INSTANCE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            
-	            LibrarySystem.INSTANCE.init();
+	            MainUI.INSTANCE.init();
 	            centerFrameOnDesktop(LibrarySystem.INSTANCE);
-	            LibrarySystem.INSTANCE.setVisible(true);
+	            MainUI.INSTANCE.setVisible(true);
 	         });
 	   }
 	   
