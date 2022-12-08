@@ -9,9 +9,8 @@ import javax.swing.JFrame;
 import librarysystem.mainUI.MainUI;
 
 
-
 public class Main {
-
+	
 	public static void main(String[] args) {
 	      EventQueue.invokeLater(() -> 
 	         {

@@ -1,4 +1,4 @@
-package myLibrarySystem;
+package librarysystem.mainUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +9,13 @@ import javax.swing.JPanel;
 import business.SystemController;
 import dataaccess.Auth;
 import librarysystem.checkout.CheckoutPanel;
+import librarysystem.checkout.CheckoutRecordPanel;
+import librarysystem.checkout.OverdueRecordPanel;
 import librarysystem.AllMemberIdsWindow;
 import librarysystem.authentication.LoginWindow;
-import librarysystem.mainUI.MainUI;
 import librarysystem.managebook.AddBookPanel;
+import myLibrarySystem.AddBookCopyWindow;
+import myLibrarySystem.AddMemberWindow;
 
 public class Menu extends JPanel {
 	JButton btnAddMember;
@@ -25,9 +28,13 @@ public class Menu extends JPanel {
 	JButton btnAllMembers;
 	JButton btnAllBooks;
 	
+	MainUI mainUI;
+	
 	public Menu() {
 		setBounds(0, 0, 174, 397);
     	setLayout(null);
+    	
+    	this.mainUI = mainUI;
     	
     	btnAddMember = new JButton("Add Member");
     	btnAddMember.setBounds(10, 65, 154, 21);
@@ -100,7 +107,7 @@ public class Menu extends JPanel {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.currentAuth==Auth.LIBRARIAN || SystemController.currentAuth==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
-    				MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    				MainUI.INSTANCE.setMainPanel(new CheckoutPanel());
     			}
     			else {
     				if(SystemController.currentAuth==null)
@@ -118,7 +125,7 @@ public class Menu extends JPanel {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.currentAuth==Auth.LIBRARIAN || SystemController.currentAuth==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
-    				MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+    				MainUI.INSTANCE.setMainPanel(new CheckoutRecordPanel());
     			}
     			else {
     				if(SystemController.currentAuth==null)
@@ -135,7 +142,7 @@ public class Menu extends JPanel {
     	btnCheckoutOverdue.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
-        			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+        			MainUI.INSTANCE.setMainPanel(new OverdueRecordPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
     			else {

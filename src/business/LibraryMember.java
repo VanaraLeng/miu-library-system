@@ -15,6 +15,13 @@ final public class LibraryMember extends Person implements Serializable {
 		this.checkoutRecord = new CheckoutRecord(this);
 	}
 	
+	// Existing user doesn't have checkout record
+	public void setupCheckoutRecord() {
+		if (checkoutRecord == null) {
+			checkoutRecord = new CheckoutRecord(this);
+		}
+	}
+	
 	public String getMemberId() {
 		return memberId;
 	}

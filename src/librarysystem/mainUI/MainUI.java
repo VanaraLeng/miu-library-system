@@ -1,29 +1,9 @@
 package librarysystem.mainUI;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-
-import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JOptionPane;
 
-import business.ControllerInterface;
-import business.LoginException;
-import business.SystemController;
-import librarysystem.LibWindow;
-import librarysystem.LibrarySystem;
-import librarysystem.Util;
 import librarysystem.authentication.LoginWindow;
-import librarysystem.managebook.AddBookPanel;
-import myLibrarySystem.Menu;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -68,12 +48,12 @@ public class MainUI extends JFrame {
 		    
 			
 			panelMenu = (JPanel) new Menu();
-			panelMenu.setBounds(0, 0, 194, 438);
+			panelMenu.setBounds(0, 0, 194, 553);
 			getContentPane().add(panelMenu);
 		//	********************This is for the message**********************
 
 			panelMessage = new JPanel();
-			panelMessage.setBounds(10, 448, 766, 105);
+			panelMessage.setBounds(199, 448, 577, 105);
 			getContentPane().add(panelMessage);
 			panelMessage.setLayout(null);
 			
