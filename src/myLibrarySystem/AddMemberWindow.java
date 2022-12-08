@@ -33,7 +33,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 	private JTextField textFieldCity;
 	private JTextField textFieldZip;
 	
-
+	private SystemController sysCtrl= new SystemController();
 	
 	public boolean isInitialized() {
 		return isInitialized;
@@ -92,6 +92,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 			
 			textFieldID = new JTextField();
 			textFieldID.setBounds(113, 76, 96, 19);
+			textFieldID.setText(sysCtrl.createMemberId());
 			add(textFieldID);
 			textFieldID.setColumns(10);
 			
@@ -150,7 +151,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
     private String checkInputValidity() {
 //    	all good if returns null otherwise returns the errors
     	String message ="";
-		if(!Validator.isFilled(textFieldID.getText())) {message+=" The ID is empty"+ System.lineSeparator() ;}
+//		if(!Validator.isFilled(textFieldID.getText())) {message+=" The ID is empty"+ System.lineSeparator() ;}
 		if(!Validator.isFilled(textFieldFirstName.getText())) {message+=" The first name is incorrect"+ System.lineSeparator();}
 		if(!Validator.isFilled(textFieldLastName.getText())) {message+=" The last name is incorrect"+ System.lineSeparator();}
 		if(!Validator.isCorrectPhoneNumber(textFieldTelephone.getText())) {message+=" The telephone is incorrect"+ System.lineSeparator();}
@@ -165,18 +166,20 @@ public class AddMemberWindow extends JPanel implements LibWindow {
     private void addButtonAddMemberListener(JButton butn) {
 		butn.addActionListener(evt -> {
 			if(checkInputValidity()=="") {
-				SystemController sysCtrl= new SystemController();
 				Address address= new Address(textFieldStreet.getText(), textFieldCity.getText(),
 						textFieldState.getText(), textFieldZip.getText());
 				LibraryMember member = new LibraryMember(textFieldID.getText(), textFieldFirstName.getText(), 
 						textFieldLastName.getText(), textFieldTelephone.getText(), address);
 				try {
 					sysCtrl.addMember(member);
+					MainUI.INSTANCE.setMessage("Member added successfully");
+					clearInput();
 				} catch (LibrarySystemException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					MainUI.INSTANCE.setMessage("Member with id " + textFieldID + " already existed");
 				}
-				MainUI.INSTANCE.setMessage("     Copy added successfully");
+				
 			}else {
 				MainUI.INSTANCE.setMessage(checkInputValidity());
 			}
@@ -184,5 +187,16 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 
 		});
 	}
+    
+    private void clearInput() {
+    	textFieldID.setText(sysCtrl.createMemberId());
+    	textFieldLastName.setText(null);
+    	textFieldStreet.setText(null);
+    	textFieldState.setText(null);
+    	textFieldFirstName.setText(null);
+    	textFieldTelephone.setText(null);
+    	textFieldCity.setText(null);
+    	textFieldZip.setText(null);
+    }
 
 }

@@ -12,6 +12,7 @@ import dataaccess.User;
 
 public class SystemController implements ControllerInterface {
 	public static Auth currentAuth = null;
+	private int memberId = initializeMemberId();
 	
 	public void login(String id, String password) throws LoginException {
 		DataAccess da = new DataAccessFacade();
@@ -194,7 +195,24 @@ public class SystemController implements ControllerInterface {
 		return bookMap.get(isbn);
 	}
 	
+	@Override
+	public String createMemberId() {
+		int currentId = memberId;
+		memberId++;
+		return Integer.toString(currentId);
+	}
 	
+	private static int initializeMemberId() {
+		DataAccess da = new DataAccessFacade();
+		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
+		String greatest = "";
+		for (String key: memberMap.keySet()) {
+			if (key.compareTo(greatest) > 0) {
+				greatest = key;
+			}
+		}
+		return Integer.parseInt(greatest)+1;
+	}
 	
 	public void logout() {
 		currentAuth=null;

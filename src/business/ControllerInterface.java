@@ -26,4 +26,6 @@ public interface ControllerInterface {
 //	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException;
 	public CheckoutRecord getCheckoutRecord(String mId) throws LibrarySystemException;
 	public Book getBook(String isbn) throws LibrarySystemException;
+	
+	public String createMemberId();
 }
