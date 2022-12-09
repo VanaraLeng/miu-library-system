@@ -13,6 +13,7 @@ public interface ControllerInterface {
 	public List<String> allBookIds();
 	
 	public List<LibraryMember> getAllMembers();
+	public List<Book> getAllBooks();
 	public void addMember(LibraryMember member) throws LibrarySystemException;
 	public void addBook(Book book) throws LibrarySystemException;
 	public void addBookCopy(String isbn) throws LibrarySystemException;

@@ -14,6 +14,7 @@ import librarysystem.checkout.OverdueRecordPanel;
 import librarysystem.AllMemberIdsWindow;
 import librarysystem.authentication.LoginWindow;
 import librarysystem.managebook.AddBookPanel;
+import librarysystem.view.ViewAllBooksPanel;
 import myLibrarySystem.AddBookCopyWindow;
 import myLibrarySystem.AddMemberWindow;
 
@@ -178,7 +179,7 @@ public class Menu extends JPanel {
     	btnAllBooks.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.LIBRARIAN ||SystemController.currentAuth==Auth.BOTH) {
-        			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+        			MainUI.INSTANCE.setMainPanel(new ViewAllBooksPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
     			else {

@@ -59,7 +59,7 @@ public class MainUI extends JFrame {
 		//	********************This is for the login window**********************
 		
 			panel_to_change =  LoginWindow.INSTANCE;
-			panel_to_change.setBounds(202, 0, 536, 438);
+			panel_to_change.setBounds(202, 0, 550, 438);
 			getContentPane().add(panel_to_change);
 			
 		//	********************This is for the message**********************
