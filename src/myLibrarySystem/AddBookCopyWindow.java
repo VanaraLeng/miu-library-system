@@ -90,10 +90,10 @@ public class AddBookCopyWindow  extends JPanel implements LibWindow {
     			SystemController sysCtrl= new SystemController();
     			try {
 					sysCtrl.addBookCopy(textFieldISBN.getText());
-					MainUI.INSTANCE.setMessage("     Copy added successfully");
+					MainUI.INSTANCE.setMessage("Copy added successfully");
 				} catch (LibrarySystemException e) {
 					// TODO Auto-generated catch block
-					MainUI.INSTANCE.setMessage("     Couldn't add the copy");
+					MainUI.INSTANCE.setMessage("Couldn't add the copy");
 					e.printStackTrace();
 				}
 

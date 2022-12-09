@@ -74,13 +74,22 @@ public class LoginWindow extends JPanel{
 		butn.addActionListener(evt -> {
 			SystemController sysCtrl= new SystemController();
 			try {
-				sysCtrl.login(textFieldID.getText(),textFieldPassword.getText());
-				String status="";
-				if(sysCtrl.currentAuth==Auth.ADMIN)status="Admin";
-				if(sysCtrl.currentAuth==Auth.LIBRARIAN)status="Librarian";
-				if(sysCtrl.currentAuth==Auth.BOTH)status="both Admin and Librarian";
+				if(sysCtrl.currentAuth==null) {
+					sysCtrl.login(textFieldID.getText(),textFieldPassword.getText());
+					String status="";
+					if(sysCtrl.currentAuth==Auth.ADMIN)status="Admin";
+					if(sysCtrl.currentAuth==Auth.LIBRARIAN)status="Librarian";
+					if(sysCtrl.currentAuth==Auth.BOTH)status="both Admin and Librarian";
+					MainUI.INSTANCE.setMessage("   You're now logged in as "+status);
+				}
+				else {
+					String status="";
+					if(sysCtrl.currentAuth==Auth.ADMIN)status="Admin";
+					if(sysCtrl.currentAuth==Auth.LIBRARIAN)status="Librarian";
+					if(sysCtrl.currentAuth==Auth.BOTH)status="both Admin and Librarian";
+					MainUI.INSTANCE.setMessage("You're already logged in as a "+status+System.lineSeparator()+"Try to logout first!" );
+				}
 
-				MainUI.INSTANCE.setMessage("   You're logged in as "+status);
 			} catch (LoginException e) {
 				// TODO Auto-generated catch block
 				MainUI.INSTANCE.setMessage(e.getMessage());

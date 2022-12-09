@@ -1,6 +1,7 @@
 package librarysystem.managebook;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +15,9 @@ import business.Address;
 import business.Author;
 import java.awt.GridLayout;
 import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import java.awt.Font;
 
 public class AddAuthorBox extends JDialog {
 	
@@ -28,6 +32,8 @@ public class AddAuthorBox extends JDialog {
 	private JTextField textFieldState;
 	private JTextField textFieldZip;
 	private JEditorPane editorBio;
+	private JTextArea textArea;
+
 	
 	/**
 	 * Create the dialog.
@@ -124,6 +130,12 @@ public class AddAuthorBox extends JDialog {
 		editorBio.setText("Hello World");
 		editorBio.setBounds(139, 363, 283, 67);
 		contentPanel.add(editorBio);
+		
+		textArea = new JTextArea();
+		textArea.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textArea.setForeground(new Color(255,0,0));
+		textArea.setBounds(44, 409, 321, 37);
+		contentPanel.add(textArea);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -172,6 +184,7 @@ public class AddAuthorBox extends JDialog {
 			 
 			 if (message != null) {
 				 System.out.println(message);
+				 textArea.setText(message);
 				 return;
 			 }
 			 

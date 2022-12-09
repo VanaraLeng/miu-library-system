@@ -180,7 +180,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 				} catch (LibrarySystemException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					MainUI.INSTANCE.setMessage("Member with id " + textFieldID + " already existed");
+					MainUI.INSTANCE.setMessage("Member with id " + textFieldID + " already exists");
 				}
 				
 			}else {
