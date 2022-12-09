@@ -15,6 +15,7 @@ import librarysystem.AllMemberIdsWindow;
 import librarysystem.authentication.LoginWindow;
 import librarysystem.managebook.AddBookPanel;
 import librarysystem.view.ViewAllBooksPanel;
+import librarysystem.view.ViewAllMembersPanel;
 import myLibrarySystem.AddBookCopyWindow;
 import myLibrarySystem.AddMemberWindow;
 
@@ -162,7 +163,7 @@ public class Menu extends JPanel {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.currentAuth==Auth.ADMIN ||  SystemController.currentAuth==Auth.LIBRARIAN||SystemController.currentAuth==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
-    				MainUI.INSTANCE.setMainPanel( AllMemberIdsWindow.INSTANCE);
+    				MainUI.INSTANCE.setMainPanel(new ViewAllMembersPanel());
     			}
     			else {
     				if(SystemController.currentAuth==null)

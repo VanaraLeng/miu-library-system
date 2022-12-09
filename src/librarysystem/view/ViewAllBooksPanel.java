@@ -32,9 +32,6 @@ public class ViewAllBooksPanel extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		showData();
-		
-		System.out.println("view all book panel");
-	
 	}
 	
 	void showData() {
