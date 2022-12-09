@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,7 +18,9 @@ import business.Author;
 import business.Book;
 import business.ControllerInterface;
 import business.SystemController;
+import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
+import javax.swing.JRadioButton;
 
 public class AddBookPanel extends JPanel {
 	/**
@@ -26,13 +29,15 @@ public class AddBookPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldTitle;
 	private JTextField textFieldIsbn;
-	private JTextField textFieldLength;
 	private JList<String> listAuthor;
 	
 	private ControllerInterface ci = new SystemController();
 	
 	private List<Author> authors = new ArrayList<>();
 	private JTextField textFieldNumberCopy;
+	private JRadioButton radioButton7Days;
+	private JRadioButton radioButton21Days;
+	ButtonGroup bg;
 	
 	/**
 	 * Create the panel.
@@ -72,12 +77,6 @@ public class AddBookPanel extends JPanel {
 		lblAuthor.setBounds(21, 199, 150, 16);
 		add(lblAuthor);
 		
-		textFieldLength = new JTextField();
-		textFieldLength.setText("1");
-		textFieldLength.setColumns(10);
-		textFieldLength.setBounds(183, 151, 211, 36);
-		add(textFieldLength);
-		
 		JLabel lblMaxCheckoutLength = new JLabel("Checkout Length");
 		lblMaxCheckoutLength.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMaxCheckoutLength.setBounds(21, 161, 150, 16);
@@ -98,7 +97,9 @@ public class AddBookPanel extends JPanel {
 		btnAddBook.addActionListener( event -> {
 			String title = textFieldTitle.getText().trim();
 			String isbn = textFieldIsbn.getText().trim();
-			String checkoutLength = textFieldLength.getText().trim();
+			String checkoutLength="";
+			if(radioButton7Days.isSelected())checkoutLength="7";
+			if(radioButton21Days.isSelected())checkoutLength="21";
 			String numCopies = textFieldNumberCopy.getText().trim();
 			addBook(isbn, title, checkoutLength, numCopies);
 		});
@@ -120,6 +121,17 @@ public class AddBookPanel extends JPanel {
 		lblNumberOfCopies.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNumberOfCopies.setBounds(21, 292, 150, 16);
 		add(lblNumberOfCopies);
+		radioButton7Days = new JRadioButton("7 days");
+		radioButton7Days.setBounds(196, 151, 86, 36);
+		add(radioButton7Days);
+		
+		radioButton21Days = new JRadioButton("21 days");
+		radioButton21Days.setBounds(293, 151, 86, 36);
+		add(radioButton21Days);
+		bg=new ButtonGroup(); 
+		bg.add(radioButton7Days);
+		bg.add(radioButton21Days);
+
 
 	}
 	
@@ -145,9 +157,11 @@ public class AddBookPanel extends JPanel {
 		String message = book.getValidationMessage();
 		if (message != null) {
 			System.out.println(message);	
+			MainUI.INSTANCE.setMessage(message);
 			return; 
 		} else if (numCopy < 1) {
 			System.out.println("Num copy must be greater than 1");
+			MainUI.INSTANCE.setMessage("Num copy must be greater than 1");
 			return;
 		}
 
@@ -155,16 +169,20 @@ public class AddBookPanel extends JPanel {
 		try {
 			ci.addBook(book);
 			System.out.print(book.getTitle() + " is added");
+			MainUI.INSTANCE.setMessage(book.getTitle() + " is added");
 			clearInput();
 		} catch (Exception e) {
 			System.out.print(e);
+			MainUI.INSTANCE.setMessage(e.getMessage());
 		}
 	}
 	
 	private void clearInput() { 
 		textFieldTitle.setText(null);
 		textFieldIsbn.setText(null);
-		textFieldLength.setText(null);
+//		textFieldLength.setText(null);
+		radioButton7Days.setSelected(false);
+		radioButton21Days.setSelected(false);
 		listAuthor.setListData(new String[0]);
 		authors = new ArrayList<>();
 	}
