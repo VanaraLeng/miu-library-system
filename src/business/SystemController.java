@@ -27,6 +27,12 @@ public class SystemController implements ControllerInterface {
 		currentAuth = map.get(id).getAuthorization();
 		
 	}
+	
+	public List<LibraryMember> getAllMembers() {
+		DataAccess da = new DataAccessFacade();
+		return  new ArrayList<LibraryMember>(da.readMemberMap().values());
+	}
+
 	@Override
 	public List<String> allMemberIds() {
 		DataAccess da = new DataAccessFacade();

@@ -4,23 +4,28 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import business.Book;
+import business.BookCopy;
 import business.CheckoutEntry;
 import business.CheckoutRecord;
 import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
+import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
 
 public class OverdueRecordPanel extends JPanel {
@@ -30,6 +35,8 @@ public class OverdueRecordPanel extends JPanel {
 	private CheckoutRecord record;
 	private ControllerInterface ci = new SystemController();
 	private JTable table;
+	private JTextField textBookTitle;
+	private JTextField textFieldCopyNumber;
 	
 	/**
 	 * Create the panel.
@@ -43,7 +50,7 @@ public class OverdueRecordPanel extends JPanel {
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
-		textMemberID.setText("1004");
+		textMemberID.setText("48-56882");
 		textMemberID.setBounds(173, 53, 200, 36);
 		add(textMemberID);
 		textMemberID.setColumns(10);
@@ -72,32 +79,53 @@ public class OverdueRecordPanel extends JPanel {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel.add(lblNewLabel_1);
 		
-		JList list_1 = new JList();
-		list_1.setEnabled(false);
-		panel.add(list_1);
+		textBookTitle = new JTextField();
+		textBookTitle.setEnabled(false);
+		textBookTitle.setEditable(false);
+		panel.add(textBookTitle);
+		textBookTitle.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Copy Number");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel.add(lblNewLabel_1_1);
 		
-		JList list_1_1 = new JList();
-		list_1_1.setEnabled(false);
-		panel.add(list_1_1);
+		textFieldCopyNumber = new JTextField();
+		textFieldCopyNumber.setEnabled(false);
+		textFieldCopyNumber.setEditable(false);
+		textFieldCopyNumber.setColumns(10);
+		panel.add(textFieldCopyNumber);
 		
 		table = new JTable();
 		table.setBounds(16, 179, 547, 238);
-		add(table);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 189, 474, 223);
+		add(scrollPane);
+		
+		table = new JTable();
+		table.setBounds(6, 215, 502, 201);
+		scrollPane.add(table);
+		scrollPane.setViewportView(table);
+		
+
 	}
 	
-	void checkRecord(String mid) {
+	void checkRecord(String isbn) {
 		try {
-			if (record == null) {
-				LibraryMember member = ci.getMember(mid);
-				member.setupCheckoutRecord();
-				record = member.getCheckoutRecord();
+			Book book = ci.getBook(isbn);
+			
+			if (book == null) {
+				MainUI.INSTANCE.setMessage("Book is not found");
+				return;
 			}
 			
-			setupTable(record.getCheckoutEntries());
+			String bookTitle = book.getTitle();
+			textBookTitle.setText(bookTitle);
+			String copyNumber = String.valueOf(book.getCopies().length);
+			textFieldCopyNumber.setText(copyNumber);
+			
+			List<LibraryMember> members = ci.getAllMembers();
+			setupTable(members, isbn);
 			
 		} catch (LibrarySystemException e) {
 			System.out.print(e.getMessage());
@@ -105,22 +133,42 @@ public class OverdueRecordPanel extends JPanel {
 		}
 	}
 	
-	void setupTable(List<CheckoutEntry> list) {
+	void setupTable(List<LibraryMember> list, String inputIsbn) {
+		
 		DefaultTableModel model = new DefaultTableModel();
-		String[] column = {"ISBN", "Book Title", "Copy numbers" };
+		String[] column = { "ISBN", "Checkout Date", "Due Date" };
+		
 		model.setColumnIdentifiers(column);
 		
 		table.setModel(model);
 		
-	    
-	    for (int i = 0; i < list.size(); i++) {
-	        String[] data = new String[3];
-	        data[0] = list.get(i).getBookCopy().getBook().getIsbn();
-	        data[1] = list.get(i).getBookCopy().getBook().getTitle();
-	        data[2] = DataUtil.dateString(list.get(i).getCheckoutDate());
-	        
-	        model.addRow(data);
-	    }
+		
+		
+		ArrayList<CheckoutEntry> entries = new ArrayList<>();
+		
+		for (LibraryMember m: list) {
+			CheckoutRecord record = m.getCheckoutRecord();
+			if (record != null) {
+				
+				for (CheckoutEntry entry : record.getCheckoutEntries()) {
+					String isbn = entry.getBookCopy().getBook().getIsbn();
+							
+					if (inputIsbn.equals(isbn)) {
+						entries.add(entry);
+						
+						
+						// Table 
+						 String[] data = new String[3];
+					        data[0] = m.getFirstName() + " " + m.getLastName();
+					        data[1] = DataUtil.dateString(entry.getCheckoutDate());
+					        data[2] = DataUtil.dateString(entry.getDueDate());
+					        
+					        model.addRow(data);
+						
+					}
+				}
+			}
+		}
 	    
 	    table.sizeColumnsToFit(0);
 	    table.sizeColumnsToFit(1);
