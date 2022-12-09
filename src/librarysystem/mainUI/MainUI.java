@@ -50,7 +50,7 @@ public class MainUI extends JFrame {
 		    
 			
 			panelMenu = (JPanel) new Menu();
-			panelMenu.setBounds(0, 0, 194, 553);
+			panelMenu.setBounds(0, 0, 194, 396);
 			getContentPane().add(panelMenu);
 			
 

@@ -94,7 +94,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 			add(labelZip);
 			
 			textFieldID = new JTextField();
-			textFieldID.setBounds(113, 76, 96, 19);
+			textFieldID.setBounds(113, 73, 140, 36);
 			textFieldID.setText(sysCtrl.createMemberId());
 			add(textFieldID);
 			textFieldID.setColumns(10);

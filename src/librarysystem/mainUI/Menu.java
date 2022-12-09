@@ -141,7 +141,7 @@ public class Menu extends JPanel {
     	btnCheckoutOverdue.setBounds(10, 255, 154, 21);
     	btnCheckoutOverdue.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.currentAuth==Auth.ADMIN ||   SystemController.currentAuth==Auth.BOTH) {
         			MainUI.INSTANCE.setMainPanel(new OverdueRecordPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
@@ -159,7 +159,7 @@ public class Menu extends JPanel {
     	btnAllMembers.setBounds(10, 293, 154, 21);
     	btnAllMembers.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.currentAuth==Auth.ADMIN ||  SystemController.currentAuth==Auth.LIBRARIAN||SystemController.currentAuth==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
     				MainUI.INSTANCE.setMainPanel( AllMemberIdsWindow.INSTANCE);
     			}
@@ -177,7 +177,7 @@ public class Menu extends JPanel {
     	btnAllBooks.setBounds(10, 331, 154, 21);
     	btnAllBooks.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.LIBRARIAN) {
+    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.LIBRARIAN ||SystemController.currentAuth==Auth.BOTH) {
         			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
