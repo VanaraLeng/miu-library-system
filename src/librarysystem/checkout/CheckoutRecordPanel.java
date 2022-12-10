@@ -45,7 +45,6 @@ public class CheckoutRecordPanel extends JPanel {
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
-		textMemberID.setText("1004");
 		textMemberID.setBounds(173, 53, 200, 36);
 		add(textMemberID);
 		textMemberID.setColumns(10);
@@ -91,7 +90,12 @@ public class CheckoutRecordPanel extends JPanel {
 	}
 	
 	void setupTable(List<CheckoutEntry> list) {
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel() {
+			 @Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+		};
 		String[] column = {"ISBN", "Book Name", "Due Date" };
 		model.setColumnIdentifiers(column);
 		
@@ -106,7 +110,7 @@ public class CheckoutRecordPanel extends JPanel {
 	        
 	        model.addRow(data);
 	    }
-	    
+	   
 	    table.sizeColumnsToFit(0);
 	    table.sizeColumnsToFit(1);
 	}

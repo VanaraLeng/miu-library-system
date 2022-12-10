@@ -27,6 +27,7 @@ public class AddBookPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final AddBookPanel INSTANCE = new AddBookPanel();
 	private JTextField textFieldTitle;
 	private JTextField textFieldIsbn;
 	private JList<String> listAuthor;
@@ -42,7 +43,7 @@ public class AddBookPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AddBookPanel() {
+	AddBookPanel() {
 		setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Add New Book");
@@ -165,7 +166,7 @@ public class AddBookPanel extends JPanel {
 
 		// Add to system
 		try {
-			ci.addBook(book);
+			ci.addBook(book, numCopy);
 			System.out.print(book.getTitle() + " is added");
 			MainUI.INSTANCE.setMessage(book.getTitle() + " is added");
 			clearInput();

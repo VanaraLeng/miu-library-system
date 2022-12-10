@@ -25,6 +25,7 @@ import business.LibrarySystemException;
 import business.SystemController;
 import librarysystem.Constant;
 import librarysystem.mainUI.MainUI;
+import librarysystem.view.ViewAllBooksPanel;
 import utility.DataUtil;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -36,6 +37,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class CheckoutPanel extends JPanel {
+	
+	public static final CheckoutPanel INSTANCE = new CheckoutPanel();
+	
 	private JTextField textMemberID;
 	private JTextField textFieldIsbn;
 	
@@ -46,7 +50,7 @@ public class CheckoutPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CheckoutPanel() {
+	CheckoutPanel() {
 		setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Checkout Book");
@@ -130,7 +134,12 @@ public class CheckoutPanel extends JPanel {
 	}
 	
 	void setupTable(List<CheckoutEntry> list) {
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel() {
+			 @Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+		};
 		String[] column = {"ISBN", "Book Name", "Due Date" };
 		model.setColumnIdentifiers(column);
 		
@@ -141,7 +150,7 @@ public class CheckoutPanel extends JPanel {
 	        String[] data = new String[3];
 	        data[0] = list.get(i).getBookCopy().getBook().getIsbn();
 	        data[1] = list.get(i).getBookCopy().getBook().getTitle();
-	        data[2] = DataUtil.dateString(list.get(i).getCheckoutDate());
+	        data[2] = DataUtil.dateString(list.get(i).getDueDate());
 	        
 	        model.addRow(data);
 	    }

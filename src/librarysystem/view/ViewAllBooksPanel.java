@@ -40,7 +40,12 @@ public class ViewAllBooksPanel extends JPanel {
 	}
 	
 	void setupTable(List<Book> bookList) {
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel() {
+			 @Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+		};
 		String[] column = {"ISBN", "Title", "Author", "Copy", "Length"};
 		model.setColumnIdentifiers(column);
 		
@@ -50,7 +55,7 @@ public class ViewAllBooksPanel extends JPanel {
 	    for (int i = 0; i < bookList.size(); i++) {
 	        String[] data = new String[5];
 	        Book book = bookList.get(i);
-	        data[0] = book.getIsbn();
+	        data[0] = book.getIsbn(); //to do: format isbn
 	        data[1] = book.getTitle();
 	        
 	        List<Author> authors = bookList.get(i).getAuthors();

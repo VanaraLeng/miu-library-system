@@ -41,7 +41,12 @@ public class ViewAllMembersPanel extends JPanel {
 	}
 	
 	void setupTable(List<LibraryMember> members) {
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel() {
+			 @Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+		};
 		String[] column = {"ID", "First Name", "Last Name", "Telephone", "Zip Code"};
 		model.setColumnIdentifiers(column);
 		
@@ -54,7 +59,7 @@ public class ViewAllMembersPanel extends JPanel {
 	        data[0] = member.getMemberId();
 	        data[1] = member.getFirstName();
 	        data[2] = member.getLastName();
-	        data[3] = member.getTelephone();
+	        data[3] = member.getTelephone(); //to do: format the tel
 	        data[4] = member.getAddress().getZip();
 	        
 	        model.addRow(data);

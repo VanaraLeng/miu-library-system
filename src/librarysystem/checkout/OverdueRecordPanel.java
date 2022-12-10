@@ -51,7 +51,6 @@ public class OverdueRecordPanel extends JPanel {
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
-		textMemberID.setText("48-56882");
 		textMemberID.setBounds(173, 53, 200, 36);
 		add(textMemberID);
 		textMemberID.setColumns(10);
@@ -136,7 +135,12 @@ public class OverdueRecordPanel extends JPanel {
 	
 	void setupTable(List<LibraryMember> list, String inputIsbn) {
 		
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel() {
+			 @Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+		};
 		String[] column = { "ISBN", "Checkout Date", "Due Date" };
 		
 		model.setColumnIdentifiers(column);

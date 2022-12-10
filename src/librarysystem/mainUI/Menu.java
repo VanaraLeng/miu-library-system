@@ -71,7 +71,7 @@ public class Menu extends JPanel {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.getCurrentAuth()==Auth.ADMIN || SystemController.getCurrentAuth()==Auth.BOTH) {
         			MainUI.INSTANCE.setMessage("");
-        			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
+        			MainUI.INSTANCE.setMainPanel(AddBookPanel.INSTANCE);
     			}
     			else {
     				if(SystemController.getCurrentAuth()==null)
@@ -107,7 +107,7 @@ public class Menu extends JPanel {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.getCurrentAuth()==Auth.LIBRARIAN || SystemController.getCurrentAuth()==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
-    				MainUI.INSTANCE.setMainPanel(new CheckoutPanel());
+    				MainUI.INSTANCE.setMainPanel(CheckoutPanel.INSTANCE);
     			}
     			else {
     				if(SystemController.getCurrentAuth()==null)
