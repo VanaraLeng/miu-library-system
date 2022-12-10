@@ -99,17 +99,19 @@ public class CheckoutRecordPanel extends JPanel {
 			       return false;
 			    }
 		};
-		String[] column = {"ISBN", "Book Name", "Due Date" };
+		String[] column = {"ISBN", "Book Name", "Copy Number", "Checkout Date", "Due Date" };
 		model.setColumnIdentifiers(column);
 		
 		table.setModel(model);
 		
 	    
 	    for (int i = 0; i < list.size(); i++) {
-	        String[] data = new String[3];
+	        String[] data = new String[5];
 	        data[0] = list.get(i).getBookCopy().getBook().getIsbn();
 	        data[1] = list.get(i).getBookCopy().getBook().getTitle();
-	        data[2] = DataUtil.dateString(list.get(i).getDueDate());
+	        data[2] = "" + list.get(i).getBookCopy().getCopyNum();
+	        data[3] = DataUtil.dateString(list.get(i).getCheckoutDate());
+	        data[4] = DataUtil.dateString(list.get(i).getDueDate());
 	        
 	        model.addRow(data);
 	    }
