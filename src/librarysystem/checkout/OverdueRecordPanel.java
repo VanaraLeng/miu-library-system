@@ -203,9 +203,7 @@ public class OverdueRecordPanel extends JPanel {
 		for (BookCopy copy: books) {
 			String[] data = new String[5];
 			
-			System.out.println(book.isAvailable());
-			
-			if (book.isAvailable()) {
+			if (copy.isAvailable()) {
 			 	data[0] = String.valueOf(copy.getCopyNum());
 			 	data[1] = "N/A";
 		        data[2] = "N/A";
@@ -217,6 +215,7 @@ public class OverdueRecordPanel extends JPanel {
 		
 	    table.sizeColumnsToFit(0);
 	    table.sizeColumnsToFit(1);
+	    table.sizeColumnsToFit(2);
 	}
 	
 	public void clearTable() {
