@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,14 +17,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import business.Book;
-import business.BookCopy;
 import business.CheckoutEntry;
 import business.CheckoutRecord;
 import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
-import librarysystem.Constant;
 import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
 import utility.Validator;
@@ -169,6 +166,7 @@ public class OverdueRecordPanel extends JPanel {
 			       return false;
 			    }
 		};
+		
 		String[] column = {"Copy Number", "Member ID", "Name", "Checkout Date", "Due Date" };
 		
 		model.setColumnIdentifiers(column);
@@ -176,14 +174,13 @@ public class OverdueRecordPanel extends JPanel {
 		
 		ArrayList<CheckoutEntry> entries = new ArrayList<>();
 		
-		// Loop through member
 		for (LibraryMember m: list) {
 			CheckoutRecord record = m.getCheckoutRecord();
 			if (record != null) {
 				for (CheckoutEntry entry : record.getCheckoutEntries()) {
 					String isbn = entry.getBookCopy().getBook().getIsbn();
 							
-					if (inputIsbn.equals(isbn)) {
+					if (inputIsbn.equals(isbn) && entry.isDue()) {
 						entries.add(entry);
 						// Table 
 						 String[] data = new String[5];
@@ -193,26 +190,9 @@ public class OverdueRecordPanel extends JPanel {
 					        data[2] = m.getFirstName() + " " + m.getLastName();
 					        data[3] = DataUtil.dateString(entry.getCheckoutDate());
 					        data[4] = DataUtil.dateString(entry.getDueDate());
-					        
 					        model.addRow(data);
 					}
 				}
-			}
-		}
-		
-		// Loop through book, display only available
-		BookCopy[] books = book.getCopies();
-		
-		for (BookCopy copy: books) {
-			String[] data = new String[5];
-			
-			if (copy.isAvailable()) {
-			 	data[0] = String.valueOf(copy.getCopyNum());
-			 	data[1] = "N/A";
-		        data[2] = "N/A";
-		        data[3] = "N/A";
-		        data[4] = "N/A";
-		        model.addRow(data);
 			}
 		}
 		

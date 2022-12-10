@@ -43,6 +43,10 @@ public class CheckoutEntry implements Serializable {
 		return this.bookCopy;
 	}
 	
+	public boolean isDue() { 
+		return LocalDate.now().isAfter(dueDate);
+	}
+	
 	@Override
 	public String toString() {
 		return bookCopy.getBook().getTitle() + ", " + checkoutDate.toString() + ", " + dueDate.toString();
