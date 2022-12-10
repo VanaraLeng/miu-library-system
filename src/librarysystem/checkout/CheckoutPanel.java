@@ -33,7 +33,7 @@ public class CheckoutPanel extends JPanel {
 	private JTextField textMemberID;
 	private JTextField textFieldIsbn;
 	
-	private CheckoutRecord record;
+//	private CheckoutRecord record;
 	private ControllerInterface ci = new SystemController();
 	private JTable table;
 	
@@ -74,7 +74,8 @@ public class CheckoutPanel extends JPanel {
 				
 				String isbn = textFieldIsbn.getText().trim();
 				String mid = textMemberID.getText().trim();
-				
+				clearTable();
+				MainUI.INSTANCE.setMessage("");
 				checkRecord(mid, isbn);
 			}
 		});
@@ -111,11 +112,11 @@ public class CheckoutPanel extends JPanel {
 		}
 		
 		try {
-			if (record == null) {
+//			if (record == null) {
 				LibraryMember member = ci.getMember(mid);
 				member.setupCheckoutRecord();
-				record = member.getCheckoutRecord();
-			}
+				CheckoutRecord record = member.getCheckoutRecord();
+//			}
 			
 			BookCopy bookCopy = ci.getBookCopy(isbn);
 			
@@ -160,7 +161,7 @@ public class CheckoutPanel extends JPanel {
 	}
 	
 	private void clearInput() {
-		record = null;
+//		record = null;
 		textMemberID.setText(null);
 		textFieldIsbn.setText(null);
 		clearTable();
