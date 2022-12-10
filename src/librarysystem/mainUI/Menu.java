@@ -142,7 +142,7 @@ public class Menu extends JPanel {
     	btnCheckoutOverdue.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.getCurrentAuth()==Auth.LIBRARIAN ||   SystemController.getCurrentAuth()==Auth.BOTH) {
-        			MainUI.INSTANCE.setMainPanel(new OverdueRecordPanel());
+        			MainUI.INSTANCE.setMainPanel(OverdueRecordPanel.INSTANCE);
         			MainUI.INSTANCE.setMessage("");
     			}
     			else {

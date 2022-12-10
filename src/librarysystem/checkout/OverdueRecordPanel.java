@@ -28,8 +28,10 @@ import business.SystemController;
 import librarysystem.Constant;
 import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
+import utility.Validator;
 
 public class OverdueRecordPanel extends JPanel {
+	public static final OverdueRecordPanel INSTANCE = new OverdueRecordPanel();
 	
 	private JTextField textMemberID;
 	
@@ -90,7 +92,7 @@ public class OverdueRecordPanel extends JPanel {
 		lblNewLabel.setEnabled(false);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Copy Number");
+		JLabel lblNewLabel_1_1 = new JLabel("Number of Copy");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel.add(lblNewLabel_1_1);
 		
@@ -127,6 +129,12 @@ public class OverdueRecordPanel extends JPanel {
 	}
 	
 	void checkRecord(String isbn) {
+		
+		if (!Validator.isCorrectISBN(isbn)) {
+			MainUI.INSTANCE.setMessage("ISBN is incorrect");
+			return;
+		}
+		
 		try {
 			Book book = ci.getBook(isbn);
 			
@@ -142,7 +150,7 @@ public class OverdueRecordPanel extends JPanel {
 			textFieldAuthor.setText(book.getAuthorNames());
 			
 			List<LibraryMember> members = ci.getAllMembers();
-			setupTable(members, isbn);
+			setupTable(members, isbn, book);
 			
 		} catch (LibrarySystemException e) {
 			System.out.print(e.getMessage());
@@ -150,7 +158,7 @@ public class OverdueRecordPanel extends JPanel {
 		}
 	}
 	
-	void setupTable(List<LibraryMember> list, String inputIsbn) {
+	void setupTable(List<LibraryMember> list, String inputIsbn, Book book) {
 		
 		DefaultTableModel model = new DefaultTableModel() {
 			 @Override
@@ -158,38 +166,55 @@ public class OverdueRecordPanel extends JPanel {
 			       return false;
 			    }
 		};
-		String[] column = { "ID", "Member", "Checkout Date", "Due Date" };
+		String[] column = {"Copy Number", "Member ID", "Name", "Checkout Date", "Due Date" };
 		
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		
 		ArrayList<CheckoutEntry> entries = new ArrayList<>();
 		
+		// Loop through member
 		for (LibraryMember m: list) {
 			CheckoutRecord record = m.getCheckoutRecord();
 			if (record != null) {
-				
 				for (CheckoutEntry entry : record.getCheckoutEntries()) {
 					String isbn = entry.getBookCopy().getBook().getIsbn();
 							
 					if (inputIsbn.equals(isbn)) {
 						entries.add(entry);
-						
-						
 						// Table 
-						 String[] data = new String[4];
-						 	data[0] = m.getMemberId();
-					        data[1] = m.getFirstName() + " " + m.getLastName();
-					        data[2] = DataUtil.dateString(entry.getCheckoutDate());
-					        data[3] = DataUtil.dateString(entry.getDueDate());
+						 String[] data = new String[5];
+						 	
+						 	data[0] = String.valueOf(entry.getBookCopy().getCopyNum());
+						 	data[1] = m.getMemberId();
+					        data[2] = m.getFirstName() + " " + m.getLastName();
+					        data[3] = DataUtil.dateString(entry.getCheckoutDate());
+					        data[4] = DataUtil.dateString(entry.getDueDate());
 					        
 					        model.addRow(data);
-						
 					}
 				}
 			}
 		}
-	    
+		
+		// Loop through book, display only available
+		BookCopy[] books = book.getCopies();
+		
+		for (BookCopy copy: books) {
+			String[] data = new String[5];
+			
+			System.out.println(book.isAvailable());
+			
+			if (book.isAvailable()) {
+			 	data[0] = String.valueOf(copy.getCopyNum());
+			 	data[1] = "N/A";
+		        data[2] = "N/A";
+		        data[3] = "N/A";
+		        data[4] = "N/A";
+		        model.addRow(data);
+			}
+		}
+		
 	    table.sizeColumnsToFit(0);
 	    table.sizeColumnsToFit(1);
 	}
