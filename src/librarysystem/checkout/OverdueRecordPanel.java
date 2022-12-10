@@ -67,6 +67,8 @@ public class OverdueRecordPanel extends JPanel {
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String memberId = textMemberID.getText().trim();
+				clearTable();
+				MainUI.INSTANCE.setMessage("");
 				checkRecord(memberId);
 			}
 		});
@@ -153,6 +155,7 @@ public class OverdueRecordPanel extends JPanel {
 			setupTable(members, isbn, book);
 			
 		} catch (LibrarySystemException e) {
+			MainUI.INSTANCE.setMessage(e.getMessage());
 			System.out.print(e.getMessage());
 			// Show error
 		}
@@ -224,5 +227,8 @@ public class OverdueRecordPanel extends JPanel {
 		for (int i = rowCount - 1; i >= 0; i--) {
 		    dm.removeRow(i);
 		}
+		textBookTitle.setText(null);
+		textFieldCopyNumber.setText(null);
+		textFieldAuthor.setText(null);
 	}
 }

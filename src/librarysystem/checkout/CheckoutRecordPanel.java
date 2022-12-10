@@ -17,6 +17,7 @@ import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
+import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -68,6 +69,7 @@ public class CheckoutRecordPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String memberId = textMemberID.getText().trim();
 				clearTable();
+				MainUI.INSTANCE.setMessage("");
 				checkRecord(memberId);
 			}
 		});
@@ -82,6 +84,7 @@ public class CheckoutRecordPanel extends JPanel {
 			CheckoutRecord record = member.getCheckoutRecord();
 			setupTable(record.getCheckoutEntries());
 		} catch (LibrarySystemException e) {
+			MainUI.INSTANCE.setMessage(e.getMessage());
 			System.out.print(e.getMessage());
 			// Show error
 		}
@@ -106,7 +109,7 @@ public class CheckoutRecordPanel extends JPanel {
 	        String[] data = new String[3];
 	        data[0] = list.get(i).getBookCopy().getBook().getIsbn();
 	        data[1] = list.get(i).getBookCopy().getBook().getTitle();
-	        data[2] = DataUtil.dateString(list.get(i).getCheckoutDate());
+	        data[2] = DataUtil.dateString(list.get(i).getDueDate());
 	        
 	        model.addRow(data);
 	    }
