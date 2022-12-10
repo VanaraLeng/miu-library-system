@@ -11,26 +11,25 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import business.BookCopy;
 import business.CheckoutEntry;
 import business.CheckoutRecord;
 import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
-import librarysystem.Constant;
 import utility.DataUtil;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 public class CheckoutRecordPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+
 	public static final CheckoutRecordPanel INSTANCE = new CheckoutRecordPanel();
 	
 	private JTextField textMemberID;
-	
-	private CheckoutRecord record;
+
 	private ControllerInterface ci = new SystemController();
 	private JTable table;
 	
@@ -68,6 +67,7 @@ public class CheckoutRecordPanel extends JPanel {
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String memberId = textMemberID.getText().trim();
+				clearTable();
 				checkRecord(memberId);
 			}
 		});
@@ -77,13 +77,10 @@ public class CheckoutRecordPanel extends JPanel {
 	
 	void checkRecord(String mid) {
 		try {
-			if (record == null) {
-				LibraryMember member = ci.getMember(mid);
-				member.setupCheckoutRecord();
-				record = member.getCheckoutRecord();
-			}
+			LibraryMember member = ci.getMember(mid);
+			member.setupCheckoutRecord();
+			CheckoutRecord record = member.getCheckoutRecord();
 			setupTable(record.getCheckoutEntries());
-			
 		} catch (LibrarySystemException e) {
 			System.out.print(e.getMessage());
 			// Show error
@@ -92,7 +89,9 @@ public class CheckoutRecordPanel extends JPanel {
 	
 	void setupTable(List<CheckoutEntry> list) {
 		DefaultTableModel model = new DefaultTableModel() {
-			 @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
 			    public boolean isCellEditable(int row, int column) {
 			       return false;
 			    }
