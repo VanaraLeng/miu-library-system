@@ -159,16 +159,16 @@ public class AddBookPanel extends JPanel {
 			MainUI.INSTANCE.setMessage(message);
 			return; 
 		} else if (numCopy < 1) {
-			System.out.println("Num copy must be greater than 1");
-			MainUI.INSTANCE.setMessage("Num copy must be greater than 1");
+			System.out.println("Number of copy must be greater than 0");
+			MainUI.INSTANCE.setMessage("Number of copy must be greater than 0");
 			return;
 		}
 
 		// Add to system
 		try {
 			ci.addBook(book, numCopy);
-			System.out.print(book.getTitle() + " is added");
-			MainUI.INSTANCE.setMessage(book.getTitle() + " is added");
+			System.out.println(book.getTitle() + " is added");
+			MainUI.INSTANCE.setMessage(book.getTitle() + " is added with " + numCopies + " copie(s).");
 			clearInput();
 		} catch (Exception e) {
 			System.out.print(e);
@@ -182,6 +182,7 @@ public class AddBookPanel extends JPanel {
 //		textFieldLength.setText(null);
 		radioButton7Days.setSelected(false);
 		radioButton21Days.setSelected(false);
+		textFieldNumberCopy.setText("1");
 		listAuthor.setListData(new String[0]);
 		authors = new ArrayList<>();
 	}
