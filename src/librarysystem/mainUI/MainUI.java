@@ -1,23 +1,20 @@
 package librarysystem.mainUI;
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import librarysystem.Constant;
 import librarysystem.authentication.LoginWindow;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.CardLayout;
-import java.awt.Color;
-
-import javax.swing.BoxLayout;
-import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 
 
 public class MainUI extends JFrame {
@@ -77,6 +74,7 @@ public class MainUI extends JFrame {
 			textFieldMessage = new JTextArea();
 			textFieldMessage.setEditable(false);
 			textFieldMessage.setBounds(21, 10, 694, 85);
+			textFieldMessage.setMargin(new Insets(8,8,8,8));
 			//panelMessage.add(textFieldMessage);
 		//	******************************************
 			
@@ -106,7 +104,7 @@ public class MainUI extends JFrame {
     
     
     public void setMessage(String str) {
-    	textFieldMessage.setText("   " + str);
+    	textFieldMessage.setText(str);
     }
     
     public void setMainPanel(JPanel panel) {

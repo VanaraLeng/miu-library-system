@@ -137,7 +137,7 @@ public class SystemController implements ControllerInterface {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
 		if(!memberMap.containsKey(mId)) {
-			throw new LibrarySystemException("ID " + mId + " not found");
+			throw new LibrarySystemException("Member ID " + mId + " not found");
 		}
 		return memberMap.get(mId);
 	}
@@ -148,7 +148,7 @@ public class SystemController implements ControllerInterface {
 		HashMap<String, Book> bookMap = da.readBooksMap();
 		Book book = bookMap.get(isbn);
 		if (book == null) {
-			throw new LibrarySystemException("ID " + isbn + " not found"); 
+			throw new LibrarySystemException("Book with ISBN " + isbn + " is not found."); 
 		}
 		return book.getNextAvailableCopy();
 	}
@@ -156,7 +156,7 @@ public class SystemController implements ControllerInterface {
 	@Override
 	public void checkoutBookCopy(CheckoutRecord rec, BookCopy bookCopy) throws LibrarySystemException {
 		if (!bookCopy.isAvailable()) {
-			throw new LibrarySystemException("Book is not available");
+			throw new LibrarySystemException("Book is not available.");
 		}
 		bookCopy.changeAvailability();
 		CheckoutEntry entry = new CheckoutEntry(LocalDate.now(), bookCopy);
@@ -171,7 +171,7 @@ public class SystemController implements ControllerInterface {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
 		if (!memberMap.containsKey(mId)) {
-			throw new LibrarySystemException("Member not found");
+			throw new LibrarySystemException("Member is not found");
 		}
 		return memberMap.get(mId).getCheckoutRecord();
 	}
@@ -181,7 +181,7 @@ public class SystemController implements ControllerInterface {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, Book> bookMap = da.readBooksMap();
 		if (!bookMap.containsKey(isbn)) {
-			throw new LibrarySystemException("Book not found");
+			throw new LibrarySystemException("Book is not found");
 		}		
 		return bookMap.get(isbn);
 	}

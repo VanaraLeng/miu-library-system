@@ -23,6 +23,7 @@ public class LoginWindow extends JPanel{
 	private JTextField textFieldID;
 	private JButton btnLogin;
 	private JLabel lblWelcomeToMiu;
+	private JLabel lblLogAs;
 
 	
 	public boolean isInitialized() {
@@ -69,6 +70,11 @@ public class LoginWindow extends JPanel{
 		lblWelcomeToMiu.setBounds(24, 23, 294, 16);
 		add(lblWelcomeToMiu);
 		
+		lblLogAs = new JLabel("");
+		lblLogAs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogAs.setBounds(97, 288, 367, 22);
+		add(lblLogAs);
+		
 		setLoggedInState(false);
 	}
 	
@@ -96,6 +102,8 @@ public class LoginWindow extends JPanel{
 					setLoggedInState(true);
 					MainUI.INSTANCE.panelMenu.enable_buttons();
 					
+					lblLogAs.setText("You are logged in as " + status);
+					
 				} catch (LoginException e) {
 					MainUI.INSTANCE.setMessage(e.getMessage());
 				}
@@ -106,6 +114,12 @@ public class LoginWindow extends JPanel{
 				MainUI.INSTANCE.setMessage("Logout successful");
 				setLoggedInState(false);
 				MainUI.INSTANCE.panelMenu.disable_buttons();
+				
+				textFieldID.setText(null);
+				passwordField.setText(null);
+				textFieldID.grabFocus();
+				
+				lblLogAs.setText("");
 			}
 		});
 	}

@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 public class CheckoutRecordPanel extends JPanel {
+	public static final CheckoutRecordPanel INSTANCE = new CheckoutRecordPanel();
 	
 	private JTextField textMemberID;
 	

@@ -45,9 +45,9 @@ public class Menu extends JPanel {
     			}
     			else {
     				if(SystemController.getCurrentAuth()==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authorization for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authorization for that!");
     				
     			}
     		}
@@ -125,7 +125,7 @@ public class Menu extends JPanel {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.getCurrentAuth()==Auth.LIBRARIAN || SystemController.getCurrentAuth()==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
-    				MainUI.INSTANCE.setMainPanel(new CheckoutRecordPanel());
+    				MainUI.INSTANCE.setMainPanel(CheckoutRecordPanel.INSTANCE);
     			}
     			else {
     				if(SystemController.getCurrentAuth()==null)
@@ -147,9 +147,9 @@ public class Menu extends JPanel {
     			}
     			else {
     				if(SystemController.getCurrentAuth()==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authorization for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authorization for that!");
     			}
     		}
     	});

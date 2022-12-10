@@ -57,15 +57,7 @@ public class ViewAllBooksPanel extends JPanel {
 	        Book book = bookList.get(i);
 	        data[0] = book.getIsbn(); //to do: format isbn
 	        data[1] = book.getTitle();
-	        
-	        List<Author> authors = bookList.get(i).getAuthors();
-	        data[2] = "";
-	        int j = 0;
-	        while (j < authors.size()-1) {
-	        	data[2] += authors.get(j).getFirstName() + " " + authors.get(j).getLastName() + ", ";
-	        	j++;
-	        }
-	        data[2] += authors.get(j).getFirstName() + " " + authors.get(j).getLastName();
+	        data[2] = book.getAuthorNames();
 	        data[3] = Integer.toString(book.getCopies().length);
 	        data[4] = Integer.toString(book.getMaxCheckoutLength());
 	        

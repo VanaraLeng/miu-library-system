@@ -14,6 +14,7 @@ import business.LoginException;
 import business.SystemController;
 import librarysystem.LibWindow;
 import librarysystem.mainUI.MainUI;
+import utility.Validator;
 
 import javax.swing.JTable;
 
@@ -87,14 +88,20 @@ public class AddBookCopyWindow  extends JPanel implements LibWindow {
     	
     	private void addButtonAddBookCopyListener(JButton butn) {
     		butn.addActionListener(evt -> {
+    			
+    			String isbn = textFieldISBN.getText();
+    			
+    			if (!Validator.isCorrectISBN(isbn)) {
+    				MainUI.INSTANCE.setMessage("Please enter correct ISBN.");
+    				return;
+    			}
+    			
     			SystemController sysCtrl= new SystemController();
     			try {
 					sysCtrl.addBookCopy(textFieldISBN.getText());
 					MainUI.INSTANCE.setMessage("Copy added successfully");
 				} catch (LibrarySystemException e) {
-					// TODO Auto-generated catch block
-					MainUI.INSTANCE.setMessage("Couldn't add the copy");
-					e.printStackTrace();
+					MainUI.INSTANCE.setMessage(e.getMessage());
 				}
 
     		});

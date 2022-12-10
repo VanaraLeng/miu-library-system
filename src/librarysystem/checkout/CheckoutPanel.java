@@ -1,21 +1,19 @@
 package librarysystem.checkout;
 
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Menu;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import business.Author;
-import business.Book;
 import business.BookCopy;
 import business.CheckoutEntry;
 import business.CheckoutRecord;
@@ -25,16 +23,8 @@ import business.LibrarySystemException;
 import business.SystemController;
 import librarysystem.Constant;
 import librarysystem.mainUI.MainUI;
-import librarysystem.view.ViewAllBooksPanel;
 import utility.DataUtil;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import utility.Validator;
 
 public class CheckoutPanel extends JPanel {
 	
@@ -111,6 +101,15 @@ public class CheckoutPanel extends JPanel {
 	}
 	
 	void checkRecord(String mid, String isbn) {
+		
+		if (!Validator.isNumeric(mid)) {
+			MainUI.INSTANCE.setMessage("Member ID is incorrect.");
+			return;
+		} else if (!Validator.isCorrectISBN(isbn)) {
+			MainUI.INSTANCE.setMessage("ISBN is incorrect.");
+			return;
+		}
+		
 		try {
 			if (record == null) {
 				LibraryMember member = ci.getMember(mid);
@@ -119,8 +118,9 @@ public class CheckoutPanel extends JPanel {
 			}
 			
 			BookCopy bookCopy = ci.getBookCopy(isbn);
+			
 			if (bookCopy == null) {
-				MainUI.INSTANCE.setMessage("No copy available");
+				MainUI.INSTANCE.setMessage("No book copy available");
 				return;
 			}
 			

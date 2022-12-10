@@ -33,11 +33,12 @@ public class OverdueRecordPanel extends JPanel {
 	
 	private JTextField textMemberID;
 	
-	private CheckoutRecord record;
 	private ControllerInterface ci = new SystemController();
 	private JTable table;
 	private JTextField textBookTitle;
 	private JTextField textFieldCopyNumber;
+	private JTextField textFieldAuthor;
+	private JLabel lblAuthor;
 	
 	/**
 	 * Create the panel.
@@ -51,13 +52,13 @@ public class OverdueRecordPanel extends JPanel {
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
-		textMemberID.setBounds(173, 53, 200, 36);
+		textMemberID.setBounds(197, 44, 190, 36);
 		add(textMemberID);
 		textMemberID.setColumns(10);
 		
 		JLabel lblMemberID = new JLabel("ISBN");
 		lblMemberID.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMemberID.setBounds(42, 62, 113, 16);
+		lblMemberID.setBounds(66, 53, 113, 16);
 		add(lblMemberID);
 		
 		JButton btnClear = new JButton("Check Overdue");
@@ -67,13 +68,13 @@ public class OverdueRecordPanel extends JPanel {
 				checkRecord(memberId);
 			}
 		});
-		btnClear.setBounds(382, 54, 137, 32);
+		btnClear.setBounds(406, 45, 137, 36);
 		add(btnClear);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 111, 513, 56);
+		panel.setBounds(6, 99, 577, 109);
 		add(panel);
-		panel.setLayout(new GridLayout(0, 2, 12, 8));
+		panel.setLayout(new GridLayout(0, 3, 8, 6));
 		
 		JLabel lblNewLabel_1 = new JLabel("Book Title");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -85,6 +86,10 @@ public class OverdueRecordPanel extends JPanel {
 		panel.add(textBookTitle);
 		textBookTitle.setColumns(10);
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setEnabled(false);
+		panel.add(lblNewLabel);
+		
 		JLabel lblNewLabel_1_1 = new JLabel("Copy Number");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel.add(lblNewLabel_1_1);
@@ -95,11 +100,22 @@ public class OverdueRecordPanel extends JPanel {
 		textFieldCopyNumber.setColumns(10);
 		panel.add(textFieldCopyNumber);
 		
-		table = new JTable();
-		table.setBounds(16, 179, 547, 238);
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setEnabled(false);
+		panel.add(lblNewLabel_2);
+		
+		lblAuthor = new JLabel("Author(s)");
+		lblAuthor.setHorizontalAlignment(SwingConstants.TRAILING);
+		panel.add(lblAuthor);
+		
+		textFieldAuthor = new JTextField();
+		textFieldAuthor.setEnabled(false);
+		textFieldAuthor.setEditable(false);
+		textFieldAuthor.setColumns(10);
+		panel.add(textFieldAuthor);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 205, Constant.CONTENT_WIDTH, 223);
+		scrollPane.setBounds(0, 220, 589, 208);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -123,6 +139,7 @@ public class OverdueRecordPanel extends JPanel {
 			textBookTitle.setText(bookTitle);
 			String copyNumber = String.valueOf(book.getCopies().length);
 			textFieldCopyNumber.setText(copyNumber);
+			textFieldAuthor.setText(book.getAuthorNames());
 			
 			List<LibraryMember> members = ci.getAllMembers();
 			setupTable(members, isbn);
@@ -141,13 +158,10 @@ public class OverdueRecordPanel extends JPanel {
 			       return false;
 			    }
 		};
-		String[] column = { "ISBN", "Checkout Date", "Due Date" };
+		String[] column = { "ID", "Member", "Checkout Date", "Due Date" };
 		
 		model.setColumnIdentifiers(column);
-		
 		table.setModel(model);
-		
-		
 		
 		ArrayList<CheckoutEntry> entries = new ArrayList<>();
 		
@@ -163,10 +177,11 @@ public class OverdueRecordPanel extends JPanel {
 						
 						
 						// Table 
-						 String[] data = new String[3];
-					        data[0] = m.getFirstName() + " " + m.getLastName();
-					        data[1] = DataUtil.dateString(entry.getCheckoutDate());
-					        data[2] = DataUtil.dateString(entry.getDueDate());
+						 String[] data = new String[4];
+						 	data[0] = m.getMemberId();
+					        data[1] = m.getFirstName() + " " + m.getLastName();
+					        data[2] = DataUtil.dateString(entry.getCheckoutDate());
+					        data[3] = DataUtil.dateString(entry.getDueDate());
 					        
 					        model.addRow(data);
 						

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.jar.Attributes.Name;
 
 import utility.Validator;
 
@@ -115,6 +116,21 @@ final public class Book implements Serializable, Validable {
 		return maxCheckoutLength;
 	}
 
+	public String getAuthorNames() {
+		String names = "";
+		
+		for (int i = 0; i < authors.size(); i++) {
+			Author author = authors.get(i);
+			String name =  author.getFirstName() + " " + author.getLastName();
+			
+			if (i == authors.size() - 1) {
+				names += name;
+			} else {
+				names += name + ", ";
+			}
+		}
+		return names;
+	}
 	
 	public String getValidationMessage() {
 		if (!Validator.isCorrectISBN(isbn)) {
