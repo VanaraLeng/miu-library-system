@@ -10,6 +10,7 @@ import business.LoginException;
 import business.SystemController;
 import dataaccess.Auth;
 import librarysystem.mainUI.MainUI;
+import javax.swing.JPasswordField;
 import java.awt.Font;
 
 public class LoginWindow extends JPanel{
@@ -19,7 +20,6 @@ public class LoginWindow extends JPanel{
 	
 	private boolean isInitialized = false;
 	
-	private JTextField textFieldPassword;
 	private JTextField textFieldID;
 	private JButton btnLogin;
 	private JLabel lblWelcomeToMiu;
@@ -31,9 +31,8 @@ public class LoginWindow extends JPanel{
 	public void isInitialized(boolean val) {
 		isInitialized = val;
 	}
-
-	public LoginWindow() {init();
-	
+	private JPasswordField passwordField;
+	public LoginWindow() {init(); 
 	}
 	
 	public void init() {
@@ -55,10 +54,10 @@ public class LoginWindow extends JPanel{
 		labelPassword.setBounds(89, 160, 103, 13);
 		add(labelPassword);
 		
-		textFieldPassword = new JTextField();
-		textFieldPassword.setBounds(199, 149, 174, 36);
-		add(textFieldPassword);
-		textFieldPassword.setColumns(10);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(199, 149, 174, 36);
+		add(passwordField);
+		passwordField.setColumns(10);
 		
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(199, 210, 174, 36);
@@ -76,11 +75,12 @@ public class LoginWindow extends JPanel{
 	private void addLoginButtonListener(JButton button) {
 		button.addActionListener(evt -> {
 			
+			SystemController sysCtrl = new SystemController();
+			
 			if (SystemController.getCurrentAuth() == null) {
 				// Login button action
-				SystemController sysCtrl= new SystemController();
 				try {
-					sysCtrl.login(textFieldID.getText(),textFieldPassword.getText());
+					sysCtrl.login(textFieldID.getText(),passwordField.getText());
 					String status="";
 					
 					Auth currentAuth = SystemController.getCurrentAuth();
@@ -94,6 +94,7 @@ public class LoginWindow extends JPanel{
 	
 					MainUI.INSTANCE.setMessage("You're logged in as " + status);
 					setLoggedInState(true);
+					MainUI.INSTANCE.panelMenu.enable_buttons();
 					
 				} catch (LoginException e) {
 					MainUI.INSTANCE.setMessage(e.getMessage());
@@ -101,17 +102,17 @@ public class LoginWindow extends JPanel{
 				
 			} else {
 				// Logout button action 
-				SystemController sysCtrl = new SystemController();
 				sysCtrl.logout();
 				MainUI.INSTANCE.setMessage("Logout successful");
 				setLoggedInState(false);
+				MainUI.INSTANCE.panelMenu.disable_buttons();
 			}
 		});
 	}
 	
 	private void setLoggedInState(boolean loggedIn) { 
 		textFieldID.setEnabled(!loggedIn);
-		textFieldPassword.setEnabled(!loggedIn);
+		passwordField.setEnabled(!loggedIn);
 		
 		if (loggedIn) {
 			btnLogin.setText("Log Out");

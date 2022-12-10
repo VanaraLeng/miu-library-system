@@ -32,7 +32,7 @@ public class MainUI extends JFrame {
 	
 
 	JPanel panel_to_change;
-	JPanel panelMenu;
+	public Menu panelMenu;
 	JPanel panelMessage;
 	JTextArea textFieldMessage;
 	public boolean isInitialized() {
@@ -44,7 +44,7 @@ public class MainUI extends JFrame {
 
 	/* This class is a singleton */
     private MainUI () {
-    	setResizable(false); init();
+    	setResizable(false);
     }
 	private JTextField txtFieldMessage = new JTextField();
 	private JPanel panel_1;
@@ -57,8 +57,7 @@ public class MainUI extends JFrame {
     
 		    getContentPane().setLayout(null);
 		    
-			
-			panelMenu = (JPanel) new Menu();
+		    panelMenu =  new Menu();
 			panelMenu.setBounds(6, 145, 174, 408);
 			getContentPane().add(panelMenu);
 			
@@ -99,6 +98,10 @@ public class MainUI extends JFrame {
 			
 			setSize(800, 600);		
     		isInitialized(true);
+    		panelMenu.disable_buttons();
+//    		pack();
+    		//setSize(660, 500);  
+    		
     }
     
     
@@ -117,4 +120,5 @@ public class MainUI extends JFrame {
 		getContentPane().add(panel_to_change);
 		panel_to_change.setVisible(true);
     }
+    
 }

@@ -47,7 +47,7 @@ public class Menu extends JPanel {
     				if(SystemController.getCurrentAuth()==null)
     				MainUI.INSTANCE.setMessage("      You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("      You don't have the authorization for that!");
     				
     			}
     		}
@@ -63,6 +63,7 @@ public class Menu extends JPanel {
     	});
     	btnLoginLogout.setBounds(10, 27, 154, 21);
     	add(btnLoginLogout);
+
     	
     	btnAddBook = new JButton("Add Book");
     	btnAddBook.setBounds(10, 103, 154, 21);
@@ -140,7 +141,7 @@ public class Menu extends JPanel {
     	btnCheckoutOverdue.setBounds(10, 255, 154, 21);
     	btnCheckoutOverdue.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.getCurrentAuth()==Auth.ADMIN ||   SystemController.getCurrentAuth()==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.LIBRARIAN ||   SystemController.getCurrentAuth()==Auth.BOTH) {
         			MainUI.INSTANCE.setMainPanel(new OverdueRecordPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
@@ -148,11 +149,12 @@ public class Menu extends JPanel {
     				if(SystemController.getCurrentAuth()==null)
     				MainUI.INSTANCE.setMessage("      You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("      You don't have the authorization for that!");
     			}
     		}
     	});
     	add(btnCheckoutOverdue);
+
     	
     	btnAllMembers = new JButton("All Members");
     	btnAllMembers.setBounds(10, 293, 154, 21);
@@ -171,13 +173,14 @@ public class Menu extends JPanel {
     		}
     	});
     	add(btnAllMembers);
+
     	
     	btnAllBooks = new JButton("All Books");
     	btnAllBooks.setBounds(10, 331, 154, 21);
     	btnAllBooks.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			if(SystemController.getCurrentAuth()==Auth.ADMIN || SystemController.getCurrentAuth()==Auth.LIBRARIAN ||SystemController.getCurrentAuth()==Auth.BOTH) {
-        			MainUI.INSTANCE.setMainPanel(new ViewAllBooksPanel());
+    				MainUI.INSTANCE.setMainPanel(new ViewAllBooksPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
     			else {
@@ -189,7 +192,39 @@ public class Menu extends JPanel {
     		}
     	});
     	add(btnAllBooks);
+    	
 	}
+	public void enable_buttons() {
+		
+		if(SystemController.getCurrentAuth()==Auth.ADMIN || SystemController.getCurrentAuth()==Auth.BOTH) {
+	    	btnAllBooks.setEnabled(true);
+	    	btnAllMembers.setEnabled(true);
+	    	btnAddBookCopy.setEnabled(true);
+	    	btnAddBook.setEnabled(true);
+	    	btnAddMember.setEnabled(true);
+		}
+		
+		if(SystemController.getCurrentAuth()==Auth.LIBRARIAN || SystemController.getCurrentAuth()==Auth.BOTH) {
+			btnCheckoutOverdue.setEnabled(true);
+			btnCheckoutRecord.setEnabled(true);
+			btnCheckoutBook.setEnabled(true);
+			btnAllBooks.setEnabled(true);
+			btnAllMembers.setEnabled(true);
+
+		}
+		
+	}	
+	public void disable_buttons() {
+		btnCheckoutOverdue.setEnabled(false);
+		btnCheckoutRecord.setEnabled(false);
+		btnCheckoutBook.setEnabled(false);
+    	btnAllBooks.setEnabled(false);
+    	btnAllMembers.setEnabled(false);
+    	btnAddBookCopy.setEnabled(false);
+    	btnAddBook.setEnabled(false);
+    	btnAddMember.setEnabled(false);
+	}
+	
 	
 	private static final long serialVersionUID = 1L;
 
