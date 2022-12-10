@@ -11,12 +11,7 @@ public class CheckoutRecord implements Serializable {
 	private static final long serialVersionUID = -63976228084869913L;
 	private LibraryMember member;
 	private List<CheckoutEntry> checkoutEntries = new ArrayList<CheckoutEntry>();
-	
-//	CheckoutRecord(LibraryMember member, BookCopy bookCopy) {
-//		this.member = member;
-//		checkoutEntries.add(new CheckoutEntry(LocalDate.now(), bookCopy));
-//	}
-	
+		
 	CheckoutRecord(LibraryMember member) {
 		this.member = member;
 	}

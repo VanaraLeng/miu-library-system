@@ -14,6 +14,7 @@ public class SystemController implements ControllerInterface {
 	public static Auth currentAuth = null;
 	private int memberId = initializeMemberId();
 	
+	@Override
 	public void login(String id, String password) throws LoginException {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, User> map = da.readUserMap();
@@ -29,15 +30,9 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public List<LibraryMember> getAllMembers() {
-		DataAccess da = new DataAccessFacade();
-		return  new ArrayList<LibraryMember>(da.readMemberMap().values());
-	}
-	
-	@Override
-	public List<Book> getAllBooks() {
-		DataAccess da = new DataAccessFacade();
-		return new ArrayList<Book>(da.readBooksMap().values());
+	public void logout() {
+		currentAuth=null;
+		Main.main(null);
 	}
 
 	@Override
@@ -56,6 +51,17 @@ public class SystemController implements ControllerInterface {
 		return retval;
 	}
 	
+	@Override
+	public List<LibraryMember> getAllMembers() {
+		DataAccess da = new DataAccessFacade();
+		return  new ArrayList<LibraryMember>(da.readMemberMap().values());
+	}
+	
+	@Override
+	public List<Book> getAllBooks() {
+		DataAccess da = new DataAccessFacade();
+		return new ArrayList<Book>(da.readBooksMap().values());
+	}
 	
 	@Override
 	public void addMember(LibraryMember member) throws LibrarySystemException {
@@ -85,7 +91,6 @@ public class SystemController implements ControllerInterface {
 		if (map.containsKey(book.getIsbn())) {
 			throw new LibrarySystemException("Book with ISBN " + book.getIsbn() + " already existed!");
 		}
-		
 		da.saveNewBook(book);
 	}
 	
@@ -113,29 +118,6 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-//	public CheckoutRecord checkoutBook(String mId, String isbn) throws LibrarySystemException {
-//		DataAccess da = new DataAccessFacade();
-//		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
-//		if(!memberMap.containsKey(mId)) {
-//			throw new LibrarySystemException("ID " + mId + " not found");
-//		}
-//		
-//		HashMap<String,Book> bookMap = da.readBooksMap();
-//		if(!bookMap.containsKey(isbn)) {
-//			throw new LibrarySystemException("Book with ISBN " + isbn + " not found!");
-//		}
-//		
-//		if (!bookMap.get(isbn).isAvailable()) {
-//			throw new LibrarySystemException("Book is not available.");
-//		}
-//		
-//		LibraryMember member = memberMap.get(mId);
-//		Book book = bookMap.get(isbn);
-//		CheckoutRecord cr = member.addCheckoutRecord(book.getNextAvailableCopy());
-//		da.saveCheckoutRecord(member);
-//		return cr;
-//	}
-	
 	public LibraryMember getMember(String mId) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, LibraryMember> memberMap = da.readMemberMap();
@@ -145,6 +127,7 @@ public class SystemController implements ControllerInterface {
 		return memberMap.get(mId);
 	}
 	
+	@Override
 	public BookCopy getBookCopy(String isbn) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, Book> bookMap = da.readBooksMap();
@@ -155,22 +138,7 @@ public class SystemController implements ControllerInterface {
 		return book.getNextAvailableCopy();
 	}
 	
-//	public CheckoutRecord createCheckoutRecord(LibraryMember member, BookCopy bookCopy) throws LibrarySystemException {
-//		if (!bookCopy.isAvailable()) {
-//			throw new LibrarySystemException("Book is not available");
-//		}
-//		
-//		//add the record
-//		member.addCheckoutRecord(bookCopy);
-//		
-//		//save to database
-//		DataAccess da = new DataAccessFacade();
-//		da.updateMember(member);
-//		
-//		//return the record
-//		return member.getCheckoutRecord();
-//	}
-	
+	@Override
 	public void checkoutBookCopy(CheckoutRecord rec, BookCopy bookCopy) throws LibrarySystemException {
 		if (!bookCopy.isAvailable()) {
 			throw new LibrarySystemException("Book is not available");
@@ -182,12 +150,7 @@ public class SystemController implements ControllerInterface {
 		da.updateBook(bookCopy.getBook());
 		da.updateMember(rec.getMember());
 	}
-	
-	public static Author createAuthor(String fn, String ln, String tel, String bio, String street, String city, String state, String zip) {
-		Address address = new Address(street, city, state, zip);
-		return new Author(fn, ln, tel, address, bio);
-	}
-	
+		
 	@Override
 	public CheckoutRecord getCheckoutRecord(String mId) throws LibrarySystemException {
 		DataAccess da = new DataAccessFacade();
@@ -225,13 +188,6 @@ public class SystemController implements ControllerInterface {
 			}
 		}
 		return Integer.parseInt(greatest)+1;
-	}
-	
-	public void logout() {
-		currentAuth=null;
-		Main.main(null);
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
