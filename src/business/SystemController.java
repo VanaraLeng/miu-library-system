@@ -94,13 +94,18 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public void addBook(Book book) throws LibrarySystemException {
+	public void addBook(Book book, int numCopy) throws LibrarySystemException {
 		//check if book is already exist
 		DataAccess da = new DataAccessFacade();
 		HashMap<String,Book> map = da.readBooksMap();
 		if (map.containsKey(book.getIsbn())) {
 			throw new LibrarySystemException("Book with ISBN " + book.getIsbn() + " already existed!");
 		}
+		// add copies
+		for (int i = 0; i < numCopy - 1; i++) {
+			book.addCopy();	
+		}
+		
 		da.saveNewBook(book);
 	}
 	

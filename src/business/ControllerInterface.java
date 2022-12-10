@@ -15,7 +15,7 @@ public interface ControllerInterface {
 	public Book getBook(String isbn) throws LibrarySystemException;
 	
 	public void addMember(LibraryMember member) throws LibrarySystemException;
-	public void addBook(Book book) throws LibrarySystemException;
+	public void addBook(Book book, int numCopy) throws LibrarySystemException;
 	public void addBookCopy(String isbn) throws LibrarySystemException;
 	public void updateMember(LibraryMember member) throws LibrarySystemException;
 	public void updateBook(Book book) throws LibrarySystemException;
