@@ -25,6 +25,7 @@ import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
+import librarysystem.Constant;
 import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
 
@@ -46,7 +47,7 @@ public class OverdueRecordPanel extends JPanel {
 		
 		JLabel lblTitle = new JLabel("Overdue");
 		lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblTitle.setBounds(42, 19, 224, 16);
+		lblTitle.setBounds(18, 16, 224, 16);
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
@@ -71,7 +72,7 @@ public class OverdueRecordPanel extends JPanel {
 		add(btnClear);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(6, 111, 500, 56);
+		panel.setBounds(6, 111, 513, 56);
 		add(panel);
 		panel.setLayout(new GridLayout(0, 2, 12, 8));
 		
@@ -99,7 +100,7 @@ public class OverdueRecordPanel extends JPanel {
 		table.setBounds(16, 179, 547, 238);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 189, 474, 223);
+		scrollPane.setBounds(0, 205, Constant.CONTENT_WIDTH, 223);
 		add(scrollPane);
 		
 		table = new JTable();

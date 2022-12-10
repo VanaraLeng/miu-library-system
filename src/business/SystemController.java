@@ -11,7 +11,8 @@ import dataaccess.DataAccessFacade;
 import dataaccess.User;
 
 public class SystemController implements ControllerInterface {
-	public static Auth currentAuth = null;
+	private static Auth currentAuth = null;
+	
 	private int memberId = initializeMemberId();
 	
 	@Override
@@ -27,6 +28,15 @@ public class SystemController implements ControllerInterface {
 		}
 		currentAuth = map.get(id).getAuthorization();
 		
+	}
+
+	
+	public static Auth getCurrentAuth() {
+		return currentAuth;
+	}
+	
+	public static void setCurrentAuth(Auth auth) {
+		currentAuth = auth;
 	}
 	
 	@Override

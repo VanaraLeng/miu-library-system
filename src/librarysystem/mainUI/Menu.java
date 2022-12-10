@@ -11,13 +11,12 @@ import dataaccess.Auth;
 import librarysystem.checkout.CheckoutPanel;
 import librarysystem.checkout.CheckoutRecordPanel;
 import librarysystem.checkout.OverdueRecordPanel;
-import librarysystem.AllMemberIdsWindow;
 import librarysystem.authentication.LoginWindow;
+import librarysystem.managebook.AddBookCopyWindow;
 import librarysystem.managebook.AddBookPanel;
 import librarysystem.view.ViewAllBooksPanel;
 import librarysystem.view.ViewAllMembersPanel;
-import myLibrarySystem.AddBookCopyWindow;
-import myLibrarySystem.AddMemberWindow;
+import managemember.AddMemberWindow;
 
 public class Menu extends JPanel {
 	JButton btnAddMember;
@@ -36,18 +35,16 @@ public class Menu extends JPanel {
 		setBounds(0, 0, 174, 397);
     	setLayout(null);
     	
-    	this.mainUI = mainUI;
-    	
     	btnAddMember = new JButton("Add Member");
     	btnAddMember.setBounds(10, 65, 154, 21);
     	btnAddMember.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.ADMIN || SystemController.getCurrentAuth()==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
         			MainUI.INSTANCE.setMainPanel(AddMemberWindow.INSTANCE);
     			}
     			else {
-    				if(SystemController.currentAuth==null)
+    				if(SystemController.getCurrentAuth()==null)
     				MainUI.INSTANCE.setMessage("      You need to login first!");
     				else
     					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
@@ -71,15 +68,15 @@ public class Menu extends JPanel {
     	btnAddBook.setBounds(10, 103, 154, 21);
     	btnAddBook.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.ADMIN || SystemController.getCurrentAuth()==Auth.BOTH) {
         			MainUI.INSTANCE.setMessage("");
         			MainUI.INSTANCE.setMainPanel(new AddBookPanel());
     			}
     			else {
-    				if(SystemController.currentAuth==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				if(SystemController.getCurrentAuth()==null)
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authority for that!");
     			}
     		}
     	});
@@ -89,15 +86,15 @@ public class Menu extends JPanel {
     	btnAddBookCopy.setBounds(10, 141, 154, 21);
     	btnAddBookCopy.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth() == Auth.ADMIN || SystemController.getCurrentAuth() ==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
     				MainUI.INSTANCE.setMainPanel( AddBookCopyWindow.INSTANCE);
     			}
     			else {
-    				if(SystemController.currentAuth==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				if(SystemController.getCurrentAuth()==null)
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authority for that!");
     			}
     		}
     	});
@@ -107,15 +104,15 @@ public class Menu extends JPanel {
     	btnCheckoutBook.setBounds(10, 179, 154, 21);
     	btnCheckoutBook.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.LIBRARIAN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.LIBRARIAN || SystemController.getCurrentAuth()==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
     				MainUI.INSTANCE.setMainPanel(new CheckoutPanel());
     			}
     			else {
-    				if(SystemController.currentAuth==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				if(SystemController.getCurrentAuth()==null)
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authority for that!");
     			}
     		}
     	});
@@ -125,15 +122,15 @@ public class Menu extends JPanel {
     	btnCheckoutRecord.setBounds(10, 217, 154, 21);
     	btnCheckoutRecord.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.LIBRARIAN || SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.LIBRARIAN || SystemController.getCurrentAuth()==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
     				MainUI.INSTANCE.setMainPanel(new CheckoutRecordPanel());
     			}
     			else {
-    				if(SystemController.currentAuth==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				if(SystemController.getCurrentAuth()==null)
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authority for that!");
     			}
     		}
     	});
@@ -143,12 +140,12 @@ public class Menu extends JPanel {
     	btnCheckoutOverdue.setBounds(10, 255, 154, 21);
     	btnCheckoutOverdue.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN ||   SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.ADMIN ||   SystemController.getCurrentAuth()==Auth.BOTH) {
         			MainUI.INSTANCE.setMainPanel(new OverdueRecordPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
     			else {
-    				if(SystemController.currentAuth==null)
+    				if(SystemController.getCurrentAuth()==null)
     				MainUI.INSTANCE.setMessage("      You need to login first!");
     				else
     					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
@@ -161,15 +158,15 @@ public class Menu extends JPanel {
     	btnAllMembers.setBounds(10, 293, 154, 21);
     	btnAllMembers.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN ||  SystemController.currentAuth==Auth.LIBRARIAN||SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.ADMIN ||  SystemController.getCurrentAuth()==Auth.LIBRARIAN||SystemController.getCurrentAuth()==Auth.BOTH) {
     				MainUI.INSTANCE.setMessage("");
     				MainUI.INSTANCE.setMainPanel(new ViewAllMembersPanel());
     			}
     			else {
-    				if(SystemController.currentAuth==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				if(SystemController.getCurrentAuth()==null)
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authority for that!");
     			}
     		}
     	});
@@ -179,15 +176,15 @@ public class Menu extends JPanel {
     	btnAllBooks.setBounds(10, 331, 154, 21);
     	btnAllBooks.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			if(SystemController.currentAuth==Auth.ADMIN || SystemController.currentAuth==Auth.LIBRARIAN ||SystemController.currentAuth==Auth.BOTH) {
+    			if(SystemController.getCurrentAuth()==Auth.ADMIN || SystemController.getCurrentAuth()==Auth.LIBRARIAN ||SystemController.getCurrentAuth()==Auth.BOTH) {
         			MainUI.INSTANCE.setMainPanel(new ViewAllBooksPanel());
         			MainUI.INSTANCE.setMessage("");
     			}
     			else {
-    				if(SystemController.currentAuth==null)
-    				MainUI.INSTANCE.setMessage("      You need to login first!");
+    				if(SystemController.getCurrentAuth()==null)
+    				MainUI.INSTANCE.setMessage("You need to login first!");
     				else
-    					MainUI.INSTANCE.setMessage("      You don't have the authority for that!");
+    					MainUI.INSTANCE.setMessage("You don't have the authority for that!");
     			}
     		}
     	});

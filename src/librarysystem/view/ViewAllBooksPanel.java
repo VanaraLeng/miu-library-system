@@ -6,6 +6,7 @@ import business.Author;
 import business.Book;
 import business.ControllerInterface;
 import business.SystemController;
+import librarysystem.Constant;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -21,13 +22,13 @@ public class ViewAllBooksPanel extends JPanel {
 
 	//Singleton class
 	public ViewAllBooksPanel() {
+		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 101, 477, 299);
+		scrollPane.setBounds(0, 0, Constant.CONTENT_WIDTH, Constant.CONTENT_HEIGHT);
 		add(scrollPane);
 		
 		table = new JTable();
-		table.setBounds(6, 215, 502, 201);
 		scrollPane.add(table);
 		scrollPane.setViewportView(table);
 		
@@ -70,7 +71,6 @@ public class ViewAllBooksPanel extends JPanel {
 	    table.getColumnModel().getColumn(1).setPreferredWidth(200);
 	    table.getColumnModel().getColumn(2).setPreferredWidth(200);
 	    table.getColumnModel().getColumn(3).setPreferredWidth(60);
-	    table.getColumnModel().getColumn(4).setPreferredWidth(60);
 
 	    table.setRowHeight(25);
 	}

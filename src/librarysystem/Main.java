@@ -18,7 +18,7 @@ public class Main {
 	            MainUI.INSTANCE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            
 	            MainUI.INSTANCE.init();
-	            centerFrameOnDesktop(LibrarySystem.INSTANCE);
+	            centerFrameOnDesktop(MainUI.INSTANCE);
 	            MainUI.INSTANCE.setVisible(true);
 	         });
 	   }

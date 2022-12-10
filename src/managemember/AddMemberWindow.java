@@ -1,4 +1,4 @@
-package myLibrarySystem;
+package managemember;
 
 import java.awt.Font;
 
@@ -57,7 +57,7 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 //			setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Adding new member");
-			lblNewLabel.setBounds(193, 21, 216, 36);
+			lblNewLabel.setBounds(22, 6, 216, 36);
 			lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 			add(lblNewLabel);
 			
@@ -94,6 +94,8 @@ public class AddMemberWindow extends JPanel implements LibWindow {
 			add(labelZip);
 			
 			textFieldID = new JTextField();
+			textFieldID.setEnabled(false);
+			textFieldID.setEditable(false);
 			textFieldID.setBounds(113, 73, 140, 36);
 			textFieldID.setText(sysCtrl.createMemberId());
 			add(textFieldID);

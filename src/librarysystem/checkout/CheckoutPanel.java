@@ -23,6 +23,7 @@ import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
+import librarysystem.Constant;
 import librarysystem.mainUI.MainUI;
 import utility.DataUtil;
 import java.awt.event.ActionListener;
@@ -50,29 +51,27 @@ public class CheckoutPanel extends JPanel {
 		
 		JLabel lblTitle = new JLabel("Checkout Book");
 		lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblTitle.setBounds(21, 17, 224, 16);
+		lblTitle.setBounds(31, 18, 224, 16);
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
-		textMemberID.setText("1004");
-		textMemberID.setBounds(173, 53, 231, 36);
+		textMemberID.setBounds(162, 53, 231, 36);
 		add(textMemberID);
 		textMemberID.setColumns(10);
 		
 		textFieldIsbn = new JTextField();
-		textFieldIsbn.setText("48-56882");
 		textFieldIsbn.setColumns(10);
-		textFieldIsbn.setBounds(173, 101, 231, 36);
+		textFieldIsbn.setBounds(162, 101, 231, 36);
 		add(textFieldIsbn);
 		
 		JLabel lblNewLabel = new JLabel("ISBN");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel.setBounds(42, 110, 113, 16);
+		lblNewLabel.setBounds(31, 110, 113, 16);
 		add(lblNewLabel);
 		
 		JLabel lblMemberID = new JLabel("Member ID");
 		lblMemberID.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMemberID.setBounds(42, 62, 113, 16);
+		lblMemberID.setBounds(31, 62, 113, 16);
 		add(lblMemberID);
 		
 		JButton btnAddBook = new JButton("Checkout");
@@ -85,11 +84,11 @@ public class CheckoutPanel extends JPanel {
 				checkRecord(mid, isbn);
 			}
 		});
-		btnAddBook.setBounds(416, 102, 103, 33);
+		btnAddBook.setBounds(419, 102, 136, 36);
 		add(btnAddBook);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 150, 477, 250);
+		scrollPane.setBounds(0, 150, Constant.CONTENT_WIDTH, 290);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -103,7 +102,7 @@ public class CheckoutPanel extends JPanel {
 				clearInput();
 			}
 		});
-		btnClear.setBounds(416, 54, 103, 32);
+		btnClear.setBounds(419, 54, 136, 36);
 		add(btnClear);
 	}
 	

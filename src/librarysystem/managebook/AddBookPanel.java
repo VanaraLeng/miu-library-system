@@ -51,13 +51,11 @@ public class AddBookPanel extends JPanel {
 		add(lblTitle);
 		
 		textFieldTitle = new JTextField();
-		textFieldTitle.setText("Java Advance");
 		textFieldTitle.setBounds(183, 103, 211, 36);
 		add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 		
 		textFieldIsbn = new JTextField();
-		textFieldIsbn.setText("1234567890123");
 		textFieldIsbn.setColumns(10);
 		textFieldIsbn.setBounds(183, 55, 211, 36);
 		add(textFieldIsbn);
@@ -74,7 +72,7 @@ public class AddBookPanel extends JPanel {
 		
 		JLabel lblAuthor = new JLabel("Author(s)");
 		lblAuthor.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAuthor.setBounds(21, 199, 150, 16);
+		lblAuthor.setBounds(20, 209, 150, 16);
 		add(lblAuthor);
 		
 		JLabel lblMaxCheckoutLength = new JLabel("Checkout Length");
@@ -90,7 +88,7 @@ public class AddBookPanel extends JPanel {
 			box.setOwner(this);
 			box.setVisible(true);
 		});
-		btnAddAuthor.setBounds(406, 199, 34, 34);
+		btnAddAuthor.setBounds(405, 209, 34, 34);
 		add(btnAddAuthor);
 		
 		JButton btnAddBook = new JButton("Add Book");
@@ -108,18 +106,18 @@ public class AddBookPanel extends JPanel {
 		add(btnAddBook);
 		
 		listAuthor = new JList<String>();
-		listAuthor.setBounds(183, 199, 211, 71);
+		listAuthor.setBounds(182, 209, 211, 71);
 		add(listAuthor);
 		
 		textFieldNumberCopy = new JTextField();
 		textFieldNumberCopy.setText("1");
 		textFieldNumberCopy.setColumns(10);
-		textFieldNumberCopy.setBounds(183, 282, 211, 36);
+		textFieldNumberCopy.setBounds(182, 292, 211, 36);
 		add(textFieldNumberCopy);
 		
 		JLabel lblNumberOfCopies = new JLabel("Number of copies");
 		lblNumberOfCopies.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNumberOfCopies.setBounds(21, 292, 150, 16);
+		lblNumberOfCopies.setBounds(20, 302, 150, 16);
 		add(lblNumberOfCopies);
 		radioButton7Days = new JRadioButton("7 days");
 		radioButton7Days.setBounds(196, 151, 86, 36);

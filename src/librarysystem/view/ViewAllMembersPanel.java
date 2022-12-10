@@ -7,6 +7,7 @@ import business.Book;
 import business.ControllerInterface;
 import business.LibraryMember;
 import business.SystemController;
+import librarysystem.Constant;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -22,13 +23,13 @@ public class ViewAllMembersPanel extends JPanel {
 
 	//Singleton class
 	public ViewAllMembersPanel() {
+		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 101, 477, 299);
+		scrollPane.setBounds(0, 0, Constant.CONTENT_WIDTH, Constant.CONTENT_HEIGHT);
 		add(scrollPane);
 		
 		table = new JTable();
-		table.setBounds(6, 215, 502, 201);
 		scrollPane.add(table);
 		scrollPane.setViewportView(table);
 		
@@ -41,7 +42,7 @@ public class ViewAllMembersPanel extends JPanel {
 	
 	void setupTable(List<LibraryMember> members) {
 		DefaultTableModel model = new DefaultTableModel();
-		String[] column = {"ID", "FirstName", "LastName", "Tel", "Zip"};
+		String[] column = {"ID", "First Name", "Last Name", "Telephone", "Zip Code"};
 		model.setColumnIdentifiers(column);
 		
 		table.setModel(model);

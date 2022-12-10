@@ -18,6 +18,7 @@ import business.ControllerInterface;
 import business.LibraryMember;
 import business.LibrarySystemException;
 import business.SystemController;
+import librarysystem.Constant;
 import utility.DataUtil;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -40,7 +41,7 @@ public class CheckoutRecordPanel extends JPanel {
 		
 		JLabel lblTitle = new JLabel("Checkout Record");
 		lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblTitle.setBounds(42, 19, 224, 16);
+		lblTitle.setBounds(17, 17, 224, 16);
 		add(lblTitle);
 		
 		textMemberID = new JTextField();
@@ -55,7 +56,7 @@ public class CheckoutRecordPanel extends JPanel {
 		add(lblMemberID);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 101, 477, 299);
+		scrollPane.setBounds(0, 101, 589, 317);
 		add(scrollPane);
 		
 		table = new JTable();

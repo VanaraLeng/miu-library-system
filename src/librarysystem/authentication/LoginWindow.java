@@ -4,11 +4,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import business.LoginException;
 import business.SystemController;
 import dataaccess.Auth;
 import librarysystem.mainUI.MainUI;
+import java.awt.Font;
 
 public class LoginWindow extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -17,6 +19,10 @@ public class LoginWindow extends JPanel{
 	
 	private boolean isInitialized = false;
 	
+	private JTextField textFieldPassword;
+	private JTextField textFieldID;
+	private JButton btnLogin;
+	private JLabel lblWelcomeToMiu;
 
 	
 	public boolean isInitialized() {
@@ -26,75 +32,91 @@ public class LoginWindow extends JPanel{
 		isInitialized = val;
 	}
 
-	private JTextField textFieldPassword;
-	private JTextField textFieldID;
-	public LoginWindow() {init(); 
+	public LoginWindow() {init();
+	
 	}
+	
 	public void init() {
-		setBounds(143, 0, 503, 359);
+		setBounds(143, 0, 573, 367);
 		setLayout(null);
 		
 		JLabel labelID = new JLabel("ID : ");
-		labelID.setBounds(69, 98, 30, 13);
+		labelID.setHorizontalAlignment(SwingConstants.TRAILING);
+		labelID.setBounds(89, 112, 103, 13);
 		add(labelID);
 		
 		textFieldID = new JTextField();
-		textFieldID.setBounds(109, 87, 131, 36);
+		textFieldID.setBounds(199, 101, 174, 36);
 		add(textFieldID);
 		textFieldID.setColumns(10);
 		
 		JLabel labelPassword = new JLabel("Password : ");
-		labelPassword.setBounds(262, 98, 70, 13);
+		labelPassword.setHorizontalAlignment(SwingConstants.TRAILING);
+		labelPassword.setBounds(89, 160, 103, 13);
 		add(labelPassword);
 		
 		textFieldPassword = new JTextField();
-		textFieldPassword.setBounds(342, 87, 131, 36);
+		textFieldPassword.setBounds(199, 149, 174, 36);
 		add(textFieldPassword);
 		textFieldPassword.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(182, 174, 85, 21);
+		btnLogin = new JButton("Login");
+		btnLogin.setBounds(199, 210, 174, 36);
 		addLoginButtonListener(btnLogin);
 		add(btnLogin);
 		
-		JButton btnLogout = new JButton("logout");
-		btnLogout.setBounds(182, 212, 85, 21);
-		addLogoutButtonListener(btnLogout);
-		add(btnLogout);
+		lblWelcomeToMiu = new JLabel("Welcome to MIU Library System");
+		lblWelcomeToMiu.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblWelcomeToMiu.setBounds(24, 23, 294, 16);
+		add(lblWelcomeToMiu);
+		
+		setLoggedInState(false);
 	}
-	private void addLogoutButtonListener(JButton butn) {
-		butn.addActionListener(evt -> {
-			SystemController sysCtrl= new SystemController();
-			sysCtrl.logout();
-			MainUI.INSTANCE.setMessage("Logout successful");
+	
+	private void addLoginButtonListener(JButton button) {
+		button.addActionListener(evt -> {
+			
+			if (SystemController.getCurrentAuth() == null) {
+				// Login button action
+				SystemController sysCtrl= new SystemController();
+				try {
+					sysCtrl.login(textFieldID.getText(),textFieldPassword.getText());
+					String status="";
+					
+					Auth currentAuth = SystemController.getCurrentAuth();
+					if (currentAuth == Auth.ADMIN) {
+						status = "Administration";
+					} else if (currentAuth == Auth.LIBRARIAN) {
+						status = "Librarian";
+					} else {
+						status = "both Admin and Librarian";
+					}
+	
+					MainUI.INSTANCE.setMessage("You're logged in as " + status);
+					setLoggedInState(true);
+					
+				} catch (LoginException e) {
+					MainUI.INSTANCE.setMessage(e.getMessage());
+				}
+				
+			} else {
+				// Logout button action 
+				SystemController sysCtrl = new SystemController();
+				sysCtrl.logout();
+				MainUI.INSTANCE.setMessage("Logout successful");
+				setLoggedInState(false);
+			}
 		});
 	}
 	
-	private void addLoginButtonListener(JButton butn) {
-		butn.addActionListener(evt -> {
-			SystemController sysCtrl= new SystemController();
-			try {
-				if(sysCtrl.currentAuth==null) {
-					sysCtrl.login(textFieldID.getText(),textFieldPassword.getText());
-					String status="";
-					if(sysCtrl.currentAuth==Auth.ADMIN)status="Admin";
-					if(sysCtrl.currentAuth==Auth.LIBRARIAN)status="Librarian";
-					if(sysCtrl.currentAuth==Auth.BOTH)status="both Admin and Librarian";
-					MainUI.INSTANCE.setMessage("   You're now logged in as "+status);
-				}
-				else {
-					String status="";
-					if(sysCtrl.currentAuth==Auth.ADMIN)status="Admin";
-					if(sysCtrl.currentAuth==Auth.LIBRARIAN)status="Librarian";
-					if(sysCtrl.currentAuth==Auth.BOTH)status="both Admin and Librarian";
-					MainUI.INSTANCE.setMessage("You're already logged in as a "+status+System.lineSeparator()+"Try to logout first!" );
-				}
-
-			} catch (LoginException e) {
-				// TODO Auto-generated catch block
-				MainUI.INSTANCE.setMessage(e.getMessage());
-			}
-				
-		});
+	private void setLoggedInState(boolean loggedIn) { 
+		textFieldID.setEnabled(!loggedIn);
+		textFieldPassword.setEnabled(!loggedIn);
+		
+		if (loggedIn) {
+			btnLogin.setText("Log Out");
+		} else {
+			btnLogin.setText("Log In");
+		}
 	}
 }

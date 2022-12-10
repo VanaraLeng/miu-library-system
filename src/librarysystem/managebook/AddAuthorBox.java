@@ -32,7 +32,7 @@ public class AddAuthorBox extends JDialog {
 	private JTextField textFieldState;
 	private JTextField textFieldZip;
 	private JEditorPane editorBio;
-	private JTextArea textArea;
+	private JLabel lblError;
 
 	
 	/**
@@ -40,7 +40,7 @@ public class AddAuthorBox extends JDialog {
 	 */
 	public AddAuthorBox() {
 		setTitle("Add Author");
-		setBounds(100, 100, 450, 524);
+		setBounds(100, 100, 450, 548);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -92,50 +92,41 @@ public class AddAuthorBox extends JDialog {
 		panel_1.setLayout(new GridLayout(0, 1, 0, 12));
 		
 		textFieldFirstName = new JTextField();
-		textFieldFirstName.setText("Vanara");
 		textFieldFirstName.setColumns(10);
 		panel_1.add(textFieldFirstName);
 		
 		textFieldLastName = new JTextField();
-		textFieldLastName.setText("Leng");
 		textFieldLastName.setColumns(10);
 		panel_1.add(textFieldLastName);
 		
 		textFieldTelephone = new JTextField();
-		textFieldTelephone.setText("1234567890");
 		textFieldTelephone.setColumns(10);
 		panel_1.add(textFieldTelephone);
 		
 		textFieldStreet = new JTextField();
-		textFieldStreet.setText("1000 N");
 		textFieldStreet.setColumns(10);
 		panel_1.add(textFieldStreet);
 		
 		textFieldCity = new JTextField();
-		textFieldCity.setText("Fairfield");
 		textFieldCity.setColumns(10);
 		panel_1.add(textFieldCity);
 		
 		textFieldState = new JTextField();
-		textFieldState.setText("Iowa");
 		textFieldState.setColumns(10);
 		panel_1.add(textFieldState);
 		
 		textFieldZip = new JTextField();
-		textFieldZip.setText("10093");
 		textFieldZip.setColumns(10);
 		panel_1.add(textFieldZip);
 		
 		editorBio = new JEditorPane();
-		editorBio.setText("Hello World");
 		editorBio.setBounds(139, 363, 283, 67);
 		contentPanel.add(editorBio);
 		
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textArea.setForeground(new Color(255,0,0));
-		textArea.setBounds(44, 409, 321, 37);
-		contentPanel.add(textArea);
+		lblError = new JLabel("");
+		lblError.setForeground(Color.RED);
+		lblError.setBounds(18, 448, 394, 27);
+		contentPanel.add(lblError);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -184,7 +175,7 @@ public class AddAuthorBox extends JDialog {
 			 
 			 if (message != null) {
 				 System.out.println(message);
-				 textArea.setText(message);
+				 lblError.setText(message);
 				 return;
 			 }
 			 

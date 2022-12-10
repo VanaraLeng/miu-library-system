@@ -1,4 +1,4 @@
-package myLibrarySystem;
+package librarysystem.managebook;
 
 
 import java.awt.Font;
@@ -54,20 +54,20 @@ public class AddBookCopyWindow  extends JPanel implements LibWindow {
 			
 			JLabel lblNewLabel = new JLabel("Adding a new Book Copy");
 			lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-			lblNewLabel.setBounds(195, 59, 263, 36);
+			lblNewLabel.setBounds(16, 20, 263, 36);
 			add(lblNewLabel);
 			
 			JLabel labelISBN = new JLabel("ISBN : ");
-			labelISBN.setBounds(179, 157, 62, 13);
+			labelISBN.setBounds(88, 156, 62, 13);
 			add(labelISBN);
 			
 			textFieldISBN = new JTextField();
-			textFieldISBN.setBounds(270, 146, 211, 36);
+			textFieldISBN.setBounds(162, 144, 211, 36);
 			add(textFieldISBN);
 			textFieldISBN.setColumns(10);
 			
 			JButton btnAddBookCopy = new JButton("Add a copy");
-			btnAddBookCopy.setBounds(211, 216, 115, 21);
+			btnAddBookCopy.setBounds(162, 216, 211, 36);
 			addButtonAddBookCopyListener(btnAddBookCopy);
 			add(btnAddBookCopy);
 		//	******************************************
