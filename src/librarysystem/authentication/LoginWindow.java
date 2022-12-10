@@ -10,6 +10,8 @@ import business.LoginException;
 import business.SystemController;
 import dataaccess.Auth;
 import librarysystem.mainUI.MainUI;
+import utility.Validator;
+
 import javax.swing.JPasswordField;
 import java.awt.Font;
 
@@ -81,12 +83,24 @@ public class LoginWindow extends JPanel{
 	private void addLoginButtonListener(JButton button) {
 		button.addActionListener(evt -> {
 			
+			String id = textFieldID.getText();
+			String password = passwordField.getText();
+			
+			if (!Validator.isNumeric(id)) {
+				MainUI.INSTANCE.setMessage("Please enter correct user ID.");
+				return;
+			} else if (!Validator.isFilled(password)) {
+				MainUI.INSTANCE.setMessage("Please enter password.");
+				return;
+			}
+			
+			
 			SystemController sysCtrl = new SystemController();
 			
 			if (SystemController.getCurrentAuth() == null) {
 				// Login button action
 				try {
-					sysCtrl.login(textFieldID.getText(),passwordField.getText());
+					sysCtrl.login(id, password);
 					String status="";
 					
 					Auth currentAuth = SystemController.getCurrentAuth();

@@ -134,16 +134,16 @@ final public class Book implements Serializable, Validable {
 	
 	public String getValidationMessage() {
 		if (!Validator.isCorrectISBN(isbn)) {
-			return "ISBN is not correct";
+			return "ISBN is incorrect.";
 		} 
 		if (!Validator.isFilled(title)) {
-			return "Title is not correct";
+			return "Title is missing.";
 		}
 		if (!Validator.isValidCheckoutLength(maxCheckoutLength)) {
-			return "Max checkout length is incorrect";
+			return "Max checkout length is missing.";
 		}
 		if (Validator.isNotEmpty(authors)) {
-			return "Please enter author";
+			return "Please add author(s).";
 		}
 		return null;
 	}
