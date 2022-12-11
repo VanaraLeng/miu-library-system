@@ -105,6 +105,12 @@ public class CheckoutRecordPanel extends JPanel {
 		table.setModel(model);
 		
 	    
+        int[] sizes =  { 15, 40, 15, 15, 15 };
+        String logTitle = DataUtil.printRecord(column, sizes);
+        System.out.println();
+        System.out.println(logTitle);
+        
+        
 	    for (int i = 0; i < list.size(); i++) {
 	        String[] data = new String[5];
 	        data[0] = list.get(i).getBookCopy().getBook().getIsbn();
@@ -114,10 +120,16 @@ public class CheckoutRecordPanel extends JPanel {
 	        data[4] = DataUtil.dateString(list.get(i).getDueDate());
 	        
 	        model.addRow(data);
+
+		    String log = DataUtil.printRecord(data, sizes);
+		    System.out.println(log);
+		    
 	    }
 	   
 	    table.sizeColumnsToFit(0);
 	    table.sizeColumnsToFit(1);
+	    
+
 	}
 	
 	public void clearTable() {

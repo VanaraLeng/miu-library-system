@@ -174,6 +174,14 @@ public class OverdueRecordPanel extends JPanel {
 		
 		ArrayList<CheckoutEntry> entries = new ArrayList<>();
 		
+		int[] sizes =  { 15, 40, 15, 15, 15 };
+		
+		System.out.println();
+		
+        String logTitle = DataUtil.printRecord(column, sizes);
+        System.out.println(logTitle);
+        
+		
 		for (LibraryMember m: list) {
 			CheckoutRecord record = m.getCheckoutRecord();
 			if (record != null) {
@@ -191,6 +199,9 @@ public class OverdueRecordPanel extends JPanel {
 					        data[3] = DataUtil.dateString(entry.getCheckoutDate());
 					        data[4] = DataUtil.dateString(entry.getDueDate());
 					        model.addRow(data);
+					        
+						    String log = DataUtil.printRecord(data, sizes);
+						    System.out.println(log);
 					}
 				}
 			}
